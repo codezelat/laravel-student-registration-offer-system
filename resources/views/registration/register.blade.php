@@ -15,6 +15,15 @@
             </div>
         </x-card>
 
+        <!-- Selected Diploma Display -->
+        <x-card class="bg-gradient-to-r from-green-50 to-blue-50 border-blue-200">
+            <div class="text-center">
+                <p class="text-sm font-medium text-gray-600 mb-2">You have selected:</p>
+                <p class="text-2xl font-bold text-blue-600">Diploma in {{ $diploma }}</p>
+                <p class="text-sm text-gray-500 mt-1">Complete your registration below</p>
+            </div>
+        </x-card>
+
         <!-- Registration ID Display -->
         <x-card class="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0">
             <div class="text-center">
@@ -105,21 +114,10 @@
                     />
                 </div>
 
-                <!-- Selected Diploma (Read-only) -->
-                <div>
-                    <x-input 
-                        label="Selected Diploma" 
-                        name="diploma_display" 
-                        type="text"
-                        value="Diploma in {{ $diploma }}"
-                        readonly
-                    />
-                </div>
-
                 <!-- Submit Button -->
                 <div class="pt-4">
                     <x-button type="submit" variant="primary" fullWidth class="text-lg py-4">
-                        Complete Registration 🎓
+                        Submit
                     </x-button>
                 </div>
 
