@@ -24,15 +24,6 @@
             </div>
         </x-card>
 
-        <!-- Registration ID Display -->
-        <x-card class="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0">
-            <div class="text-center">
-                <p class="text-sm font-medium mb-2">Your Registration ID</p>
-                <p class="text-2xl font-bold tracking-wide">{{ $registrationId }}</p>
-                <p class="text-xs mt-2 opacity-90">Please save this ID for future reference</p>
-            </div>
-        </x-card>
-
         <!-- Registration Form -->
         <x-card>
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Student Registration Form</h2>

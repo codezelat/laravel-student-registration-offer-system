@@ -55,11 +55,8 @@ class RegistrationController extends Controller
 
         $student = Student::create($validated);
 
-        return redirect()->route('registration.success')
-            ->with([
-                'registrationId' => $student->registration_id,
-                'name' => $student->full_name
-            ]);
+        // Redirect to payment options instead of success page
+        return redirect()->route('payment.options', $student->id);
     }
 
     /**
