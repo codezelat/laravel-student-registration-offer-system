@@ -19,7 +19,7 @@
                 </div> -->
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-700">Student Name:</span>
-                    <span class="font-semibold text-gray-800">{{ $student->full_name }}</span>
+                    <span class="font-semibold text-gray-800">{{ $studentData['full_name'] }}</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-700">Amount to Pay:</span>
@@ -60,7 +60,6 @@
 
             <form action="{{ route('payment.store-slip') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
-                <input type="hidden" name="student_id" value="{{ $student->id }}">
 
                 <!-- File Upload -->
                 <div>
@@ -120,7 +119,7 @@
                         Submit Payment Slip
                     </button>
                     <a 
-                        href="{{ route('payment.options', $student->id) }}"
+                        href="{{ route('payment.options') }}"
                         class="flex-1 px-6 py-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-semibold text-center transition-all duration-300"
                     >
                         Back to Payment Options

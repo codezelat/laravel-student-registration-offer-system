@@ -53,10 +53,12 @@ class RegistrationController extends Controller
     {
         $validated = $request->validated();
 
-        $student = Student::create($validated);
+        // Store registration data in session (don't save to DB yet)
+        session()->put('registration_data', $validated);
+        session()->put('registration_id', $validated['registration_id']);
 
-        // Redirect to payment options instead of success page
-        return redirect()->route('payment.options', $student->id);
+        // Redirect to payment options
+        return redirect()->route('payment.options');
     }
 
     /**

@@ -19,11 +19,11 @@
                 </div> -->
                 <div class="flex justify-between items-center">
                     <span class="font-medium text-gray-700">Student Name:</span>
-                    <span class="font-semibold text-gray-800">{{ $student->full_name }}</span>
+                    <span class="font-semibold text-gray-800">{{ $studentData['full_name'] }}</span>
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="font-medium text-gray-700">Diploma:</span>
-                    <span class="font-semibold text-gray-800">{{ $student->selected_diploma }}</span>
+                    <span class="font-semibold text-gray-800">{{ $studentData['selected_diploma'] }}</span>
                 </div>
                 <hr class="my-2 border-blue-300">
                 <div class="flex justify-between items-center">
@@ -88,7 +88,7 @@
         <!-- Back Button -->
         <div class="text-center">
             <a 
-                href="{{ route('payment.options', $student->id) }}"
+                href="{{ route('payment.options') }}"
                 class="inline-block px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-all duration-300"
             >
                 ← Back to Payment Options
@@ -103,7 +103,7 @@
         payhere.onCompleted = function onCompleted(orderId) {
             console.log("Payment completed. OrderID:" + orderId);
             // Redirect to success page for validation
-            window.location.href = "{{ route('payment.payhere-success', $student->id) }}?order_id=" + orderId;
+            window.location.href = "{{ route('payment.payhere-success') }}?order_id=" + orderId;
         };
 
         // Payment window closed
@@ -126,22 +126,22 @@
             "cancel_url": undefined, // Important
             "notify_url": "{{ route('payment.notify') }}",
             "order_id": "{{ $orderId }}",
-            "items": "Student Registration - Diploma in {{ $student->selected_diploma }}",
+            "items": "Student Registration - Diploma in {{ $studentData['selected_diploma'] }}",
             "amount": "5000.00",
             "currency": "LKR",
             "hash": "{{ $hash }}", // Generated hash from backend
-            "first_name": "{{ explode(' ', $student->full_name)[0] }}",
-            "last_name": "{{ implode(' ', array_slice(explode(' ', $student->full_name), 1)) ?: explode(' ', $student->full_name)[0] }}",
-            "email": "{{ $student->email }}",
-            "phone": "{{ $student->contact_number }}",
+            "first_name": "{{ explode(' ', $studentData['full_name'])[0] }}",
+            "last_name": "{{ implode(' ', array_slice(explode(' ', $studentData['full_name']), 1)) ?: explode(' ', $studentData['full_name'])[0] }}",
+            "email": "{{ $studentData['email'] }}",
+            "phone": "{{ $studentData['contact_number'] }}",
             "address": "Sri Lanka",
             "city": "Colombo",
             "country": "Sri Lanka",
             "delivery_address": "Sri Lanka",
             "delivery_city": "Colombo",
             "delivery_country": "Sri Lanka",
-            "custom_1": "{{ $student->id }}",
-            "custom_2": "{{ $student->registration_id }}"
+            "custom_1": "{{ $studentData['registration_id'] }}",
+            "custom_2": ""
         };
 
         // Show the payhere.js popup when "Pay with PayHere" button is clicked

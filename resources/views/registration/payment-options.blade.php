@@ -15,7 +15,7 @@
                     Registration Submitted!
                 </h1>
                 <p class="text-lg text-neutral-600">
-                    Welcome, <span class="font-semibold text-primary-600">{{ $student->full_name }}</span>!
+                    Welcome, <span class="font-semibold text-primary-600">{{ $studentData['full_name'] }}</span>!
                 </p>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     </svg>
                     <div>
                         <p class="text-xs text-neutral-500">Full Name</p>
-                        <p class="font-semibold text-neutral-900">{{ $student->full_name }}</p>
+                        <p class="font-semibold text-neutral-900">{{ $studentData['full_name'] }}</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-3 p-4 bg-neutral-50 rounded-xl">
@@ -71,7 +71,7 @@
                     </svg>
                     <div>
                         <p class="text-xs text-neutral-500">Program</p>
-                        <p class="font-semibold text-neutral-900">Diploma in {{ $student->selected_diploma }}</p>
+                        <p class="font-semibold text-neutral-900">Diploma in {{ $studentData['selected_diploma'] }}</p>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,6 @@
                 <!-- Online Payment -->
                 <form action="{{ route('payment.payhere') }}" method="POST" class="h-full">
                     @csrf
-                    <input type="hidden" name="student_id" value="{{ $student->id }}">
                     <button type="submit" class="group w-full h-full text-left">
                         <div class="h-full p-6 bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
                             <div class="flex items-start justify-between mb-4">
@@ -134,7 +133,7 @@
                 </form>
 
                 <!-- Bank Transfer -->
-                <a href="{{ route('payment.upload-slip', $student->id) }}" class="group block h-full">
+                <a href="{{ route('payment.upload-slip') }}" class="group block h-full">
                     <div class="h-full p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
                         <div class="flex items-start justify-between mb-4">
                             <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">

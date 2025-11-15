@@ -12,21 +12,29 @@ class PaymentController extends Controller
     /**
      * Show payment options page
      */
-    public function paymentOptions($studentId)
+    public function paymentOptions()
     {
-        $student = Student::findOrFail($studentId);
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
         
-        return view('registration.payment-options', compact('student'));
+        $studentData = session('registration_data');
+        
+        return view('registration.payment-options', compact('studentData'));
     }
 
     /**
      * Show upload payment slip page
      */
-    public function showUploadSlip($studentId)
+    public function showUploadSlip()
     {
-        $student = Student::findOrFail($studentId);
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
         
-        return view('registration.upload-slip', compact('student'));
+        $studentData = session('registration_data');
+        
+        return view('registration.upload-slip', compact('studentData'));
     }
 
     /**
@@ -35,30 +43,36 @@ class PaymentController extends Controller
     public function storeSlip(Request $request)
     {
         $request->validate([
-            'student_id' => 'required|exists:students,id',
             'payment_slip' => 'required|file|mimes:jpg,jpeg,png,pdf,docx,doc|max:10240', // 10MB max
         ]);
 
-        $student = Student::findOrFail($request->student_id);
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
+
+        $studentData = session('registration_data');
 
         // Upload payment slip
         if ($request->hasFile('payment_slip')) {
             $file = $request->file('payment_slip');
-            $filename = 'slip_' . $student->registration_id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = 'slip_' . $studentData['registration_id'] . '_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('payment_slips', $filename, 'public');
 
             // Generate student ID
             $studentId = $this->generateStudentId();
 
-            // Update student record
-            $student->update([
+            // NOW create student record in database with payment info
+            $student = Student::create(array_merge($studentData, [
                 'student_id' => $studentId,
                 'payment_method' => 'slip',
                 'payment_slip' => $path,
                 'payment_status' => 'pending',
                 'amount_paid' => 5000.00,
                 'payment_date' => now(),
-            ]);
+            ]));
+
+            // Clear session data
+            session()->forget(['registration_data', 'registration_id']);
 
             return view('registration.slip-success', compact('student'));
         }
@@ -71,14 +85,17 @@ class PaymentController extends Controller
      */
     public function payhere(Request $request)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-        ]);
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
 
-        $student = Student::findOrFail($request->student_id);
+        $studentData = session('registration_data');
         
         // Generate unique order ID
-        $orderId = 'ORD-' . $student->registration_id . '-' . time();
+        $orderId = 'ORD-' . $studentData['registration_id'] . '-' . time();
+        
+        // Store order ID in session for later
+        session()->put('payhere_order_id', $orderId);
         
         // PayHere payment details
         $merchantId = config('services.payhere.merchant_id');
@@ -91,29 +108,36 @@ class PaymentController extends Controller
         $hashedSecret = strtoupper(md5($merchantSecret));
         $hash = strtoupper(md5($merchantId . $orderId . $amount . $currency . $hashedSecret));
 
-        return view('registration.payhere-payment', compact('student', 'orderId', 'hash'));
+        return view('registration.payhere-payment', compact('studentData', 'orderId', 'hash'));
     }
 
     /**
      * Handle PayHere success callback
      */
-    public function payhereSuccess(Request $request, $studentId)
+    public function payhereSuccess(Request $request)
     {
-        $student = Student::findOrFail($studentId);
-        $orderId = $request->query('order_id');
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
+
+        $studentData = session('registration_data');
+        $orderId = $request->query('order_id') ?? session('payhere_order_id');
 
         // Generate student ID
         $studentId = $this->generateStudentId();
 
-        // Update student record
-        $student->update([
+        // NOW create student record in database with payment info
+        $student = Student::create(array_merge($studentData, [
             'student_id' => $studentId,
             'payment_method' => 'online',
             'payment_status' => 'completed',
             'payhere_order_id' => $orderId,
             'amount_paid' => 5000.00,
             'payment_date' => now(),
-        ]);
+        ]));
+
+        // Clear session data
+        session()->forget(['registration_data', 'registration_id', 'payhere_order_id']);
 
         return view('registration.payment-success', compact('student'));
     }
