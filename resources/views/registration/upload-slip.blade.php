@@ -30,7 +30,12 @@
 
         <!-- Bank Details -->
         <x-card class="bg-gray-50 border-gray-300">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">🏦 Bank Transfer Details</h3>
+            <div class="flex items-center space-x-2 mb-3">
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800">Bank Transfer Details</h3>
+            </div>
             <div class="space-y-2 text-sm text-gray-700">
                 <p><strong>Bank Name:</strong> Commercial Bank</p>
                 <p><strong>Account Name:</strong> Student Portal PVT LTD</p>
@@ -94,7 +99,7 @@
                 </div>
 
                 <!-- Additional Notes -->
-                <div>
+                <!-- <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Additional Notes (Optional)
                     </label>
@@ -104,7 +109,7 @@
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         placeholder="Any additional information about your payment..."
                     >{{ old('notes') }}</textarea>
-                </div>
+                </div> -->
 
                 <!-- Submit Button -->
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -126,7 +131,12 @@
 
         <!-- Important Notes -->
         <x-card class="bg-yellow-50 border-yellow-200">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">⚠️ Important Notes</h3>
+            <div class="flex items-center space-x-2 mb-3">
+                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800">Important Notes</h3>
+            </div>
             <ul class="space-y-2 text-sm text-gray-700">
                 <li class="flex items-start">
                     <span class="text-yellow-600 mr-2">•</span>
