@@ -79,8 +79,19 @@ class PaymentController extends Controller
         
         // Generate unique order ID
         $orderId = 'ORD-' . $student->registration_id . '-' . time();
+        
+        // PayHere payment details
+        $merchantId = config('services.payhere.merchant_id');
+        $merchantSecret = config('services.payhere.merchant_secret');
+        $amount = '5000.00';
+        $currency = 'LKR';
+        
+        // Generate hash for payment security
+        // Format: md5(merchant_id + order_id + amount + currency + md5(merchant_secret))
+        $hashedSecret = strtoupper(md5($merchantSecret));
+        $hash = strtoupper(md5($merchantId . $orderId . $amount . $currency . $hashedSecret));
 
-        return view('registration.payhere-payment', compact('student', 'orderId'));
+        return view('registration.payhere-payment', compact('student', 'orderId', 'hash'));
     }
 
     /**

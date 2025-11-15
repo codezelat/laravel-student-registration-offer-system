@@ -93,53 +93,55 @@
     <!-- PayHere Integration Script -->
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <script>
-        document.getElementById('payhere-payment').addEventListener('click', function() {
-            // PayHere payment object
-            var payment = {
-                sandbox: true, // Change to false for production
-                merchant_id: "{{ config('services.payhere.merchant_id') }}", // Your Merchant ID
-                return_url: "{{ route('payment.success') }}",
-                cancel_url: "{{ route('payment.options', $student->id) }}",
-                notify_url: "{{ route('payment.notify') }}",
-                order_id: "{{ $orderId }}",
-                items: "Student Registration - Diploma in {{ $student->selected_diploma }}",
-                amount: "5000.00",
-                currency: "LKR",
-                first_name: "{{ explode(' ', $student->full_name)[0] }}",
-                last_name: "{{ implode(' ', array_slice(explode(' ', $student->full_name), 1)) }}",
-                email: "{{ $student->email }}",
-                phone: "{{ $student->contact_number }}",
-                address: "",
-                city: "",
-                country: "Sri Lanka",
-                delivery_address: "",
-                delivery_city: "",
-                delivery_country: "",
-                custom_1: "{{ $student->id }}",
-                custom_2: "{{ $student->registration_id }}"
-            };
+        // Payment completed. It can be a successful failure.
+        payhere.onCompleted = function onCompleted(orderId) {
+            console.log("Payment completed. OrderID:" + orderId);
+            // Redirect to success page for validation
+            window.location.href = "{{ route('payment.payhere-success', $student->id) }}?order_id=" + orderId;
+        };
 
-            // Show payment modal
+        // Payment window closed
+        payhere.onDismissed = function onDismissed() {
+            console.log("Payment dismissed");
+            alert("Payment was cancelled. You can try again or choose another payment method.");
+        };
+
+        // Error occurred
+        payhere.onError = function onError(error) {
+            console.log("Error:" + error);
+            alert("Payment failed: " + error + ". Please try again or contact support.");
+        };
+
+        // Put the payment variables here
+        var payment = {
+            "sandbox": true, // Change to false for production
+            "merchant_id": "{{ config('services.payhere.merchant_id') }}",
+            "return_url": undefined, // Important
+            "cancel_url": undefined, // Important
+            "notify_url": "{{ route('payment.notify') }}",
+            "order_id": "{{ $orderId }}",
+            "items": "Student Registration - Diploma in {{ $student->selected_diploma }}",
+            "amount": "5000.00",
+            "currency": "LKR",
+            "hash": "{{ $hash }}", // Generated hash from backend
+            "first_name": "{{ explode(' ', $student->full_name)[0] }}",
+            "last_name": "{{ implode(' ', array_slice(explode(' ', $student->full_name), 1)) ?: explode(' ', $student->full_name)[0] }}",
+            "email": "{{ $student->email }}",
+            "phone": "{{ $student->contact_number }}",
+            "address": "Sri Lanka",
+            "city": "Colombo",
+            "country": "Sri Lanka",
+            "delivery_address": "Sri Lanka",
+            "delivery_city": "Colombo",
+            "delivery_country": "Sri Lanka",
+            "custom_1": "{{ $student->id }}",
+            "custom_2": "{{ $student->registration_id }}"
+        };
+
+        // Show the payhere.js popup when "Pay with PayHere" button is clicked
+        document.getElementById('payhere-payment').onclick = function (e) {
+            e.preventDefault();
             payhere.startPayment(payment);
-
-            // Payment completed callback
-            payhere.onCompleted = function onCompleted(orderId) {
-                console.log("Payment completed. OrderID:" + orderId);
-                // Redirect to success page
-                window.location.href = "{{ route('payment.payhere-success', $student->id) }}?order_id=" + orderId;
-            };
-
-            // Payment dismissed callback
-            payhere.onDismissed = function onDismissed() {
-                console.log("Payment dismissed");
-                alert("Payment was cancelled. You can try again or choose another payment method.");
-            };
-
-            // Payment error callback
-            payhere.onError = function onError(error) {
-                console.log("Error:" + error);
-                alert("Payment failed. Please try again or contact support.");
-            };
-        });
+        };
     </script>
 </x-layout>
