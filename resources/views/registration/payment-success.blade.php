@@ -61,10 +61,10 @@
                 <x-card class="bg-blue-50 border-blue-200 text-left">
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">📚 Registration Details</h3>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
+                        <!-- <div class="flex justify-between">
                             <span class="text-gray-600">Registration ID:</span>
                             <span class="font-semibold text-gray-800">{{ $student->registration_id }}</span>
-                        </div>
+                        </div> -->
                         <div class="flex justify-between">
                             <span class="text-gray-600">Student Name:</span>
                             <span class="font-semibold text-gray-800">{{ $student->full_name }}</span>

@@ -22,7 +22,7 @@
                 </div>
 
                 <!-- Registration ID Display -->
-                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
+                <!-- <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
                     <p class="text-sm font-medium mb-2 opacity-90">Your Registration ID</p>
                     <p class="text-3xl font-bold tracking-wide mb-2">
                         {{ $student->registration_id }}
@@ -30,7 +30,7 @@
                     <p class="text-xs opacity-90">
                         Please save this ID for future reference
                     </p>
-                </div>
+                </div> -->
 
                 <!-- Payment Information -->
                 <x-card class="bg-yellow-50 border-yellow-200 text-left">

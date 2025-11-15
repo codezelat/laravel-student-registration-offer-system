@@ -22,7 +22,7 @@
                 </div>
 
                 <!-- Registration ID Display -->
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
+                <!-- <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
                     <p class="text-sm font-medium mb-2 opacity-90">Your Registration ID</p>
                     <p class="text-3xl font-bold tracking-wide mb-2">
                         {{ session('registrationId') }}
@@ -30,7 +30,7 @@
                     <p class="text-xs opacity-90">
                         Please save this ID for future reference
                     </p>
-                </div>
+                </div> -->
 
                 <!-- Next Steps Information -->
                 <x-card class="bg-blue-50 border-blue-200 text-left">
