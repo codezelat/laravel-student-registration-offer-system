@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+class AdminController extends Controller
+{
+    private const ADMIN_USERNAME = 'new-dip@sitc.com';
+    private const ADMIN_PASSWORD = 'SITC#3tr56';
+
+    public function showLogin()
+    {
+        if (Session::get('admin_logged_in')) {
+            return redirect()->route('admin.dashboard');
+        }
+        return view('admin.login');
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($request->username === self::ADMIN_USERNAME && $request->password === self::ADMIN_PASSWORD) {
+            Session::put('admin_logged_in', true);
+            return redirect()->route('admin.dashboard');
+        }
+
+        return back()->withErrors(['login' => 'Invalid credentials'])->withInput();
+    }
+
+    public function dashboard(Request $request)
+    {
+        if (!Session::get('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+
+        $query = Student::query();
+
+        // Filter by search term
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('full_name', 'like', '%' . $search . '%')
+                  ->orWhere('id', 'like', '%' . $search . '%')
+                  ->orWhere('contact_number', 'like', '%' . $search . '%')
+                  ->orWhere('nic', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $students = $query->orderBy('created_at', 'desc')->paginate(25);
+
+        return view('admin.dashboard', compact('students'));
+    }
+
+    public function export(Request $request)
+    {
+        if (!Session::get('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+
+        $query = Student::query();
+
+        // Apply same filter as dashboard
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('full_name', 'like', '%' . $search . '%')
+                  ->orWhere('id', 'like', '%' . $search . '%')
+                  ->orWhere('contact_number', 'like', '%' . $search . '%')
+                  ->orWhere('nic', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $students = $query->get();
+
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set headers
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Full Name');
+        $sheet->setCellValue('C1', 'NIC');
+        $sheet->setCellValue('D1', 'Date of Birth');
+        $sheet->setCellValue('E1', 'Contact Number');
+        $sheet->setCellValue('F1', 'Email Address');
+        $sheet->setCellValue('G1', 'Payment Slip');
+
+        // Style headers
+        $sheet->getStyle('A1:G1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:G1')->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FF667eea');
+        $sheet->getStyle('A1:G1')->getFont()->getColor()->setARGB('FFFFFFFF');
+
+        // Add data
+        $row = 2;
+        foreach ($students as $student) {
+            $sheet->setCellValue('A' . $row, $student->id);
+            $sheet->setCellValue('B' . $row, $student->full_name);
+            $sheet->setCellValue('C' . $row, $student->nic);
+            $sheet->setCellValue('D' . $row, $student->date_of_birth ? $student->date_of_birth->format('Y-m-d') : 'N/A');
+            $sheet->setCellValue('E' . $row, $student->contact_number);
+            $sheet->setCellValue('F' . $row, $student->email);
+            $sheet->setCellValue('G' . $row, $student->payment_slip ? url('storage/' . $student->payment_slip) : 'N/A');
+            $row++;
+        }
+
+        // Auto-size columns
+        foreach (range('A', 'G') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        // Create writer and download
+        $filename = 'students_' . date('Y-m-d_His') . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+        exit;
+    }
+
+    public function logout()
+    {
+        Session::forget('admin_logged_in');
+        return redirect()->route('admin.login');
+    }
+}

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminController;
 
 // Landing Page - Question Page
 Route::get('/', [RegistrationController::class, 'landing'])->name('landing');
@@ -27,3 +28,10 @@ Route::post('/payment/notify', [PaymentController::class, 'payhereNotify'])->nam
 Route::get('/payment/success', function () {
     return redirect()->route('landing');
 })->name('payment.success');
+
+// Admin Routes
+Route::get('/admin-dashboard', [AdminController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin-dashboard/login', [AdminController::class, 'login'])->name('admin.login.post');
+Route::get('/admin-dashboard/panel', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin-dashboard/export', [AdminController::class, 'export'])->name('admin.export');
+Route::get('/admin-dashboard/logout', [AdminController::class, 'logout'])->name('admin.logout');
