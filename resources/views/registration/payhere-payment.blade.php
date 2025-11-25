@@ -13,10 +13,10 @@
         <!-- Payment Info -->
         <x-card class="bg-blue-50 border-blue-200">
             <div class="space-y-3">
-                <!-- <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center">
                     <span class="font-medium text-gray-700">Registration ID:</span>
-                    <span class="font-bold text-blue-600">{{ $student->registration_id }}</span>
-                </div> -->
+                    <span class="font-bold text-blue-600">{{ $studentData['registration_id'] }}</span>
+                </div>
                 <div class="flex justify-between items-center">
                     <span class="font-medium text-gray-700">Student Name:</span>
                     <span class="font-semibold text-gray-800">{{ $studentData['full_name'] }}</span>

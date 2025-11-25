@@ -17,7 +17,13 @@
     <!-- Main Question Card -->
     <div class="max-w-2xl mx-auto" x-data="{ showResponse: false, isNovember: false }">
         <!-- Question Card -->
-        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-neutral-200/50 transition-smooth hover:shadow-2xl">
+        <div 
+            x-show="!showResponse"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+            class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-neutral-200/50 transition-smooth hover:shadow-2xl"
+        >
             <!-- Icon -->
             <div class="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,10 +73,9 @@
         <!-- Response Cards -->
         <div 
             x-show="showResponse" 
-            x-transition:enter="transition ease-out duration-500 delay-150"
-            x-transition:enter-start="opacity-0 transform translate-y-8"
-            x-transition:enter-end="opacity-100 transform translate-y-0"
-            class="mt-8"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
             style="display: none;"
         >
             <!-- November Student Response -->
