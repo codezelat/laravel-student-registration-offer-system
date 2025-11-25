@@ -42,4 +42,11 @@ return [
         'app_secret' => env('PAYHERE_APP_SECRET'),
     ],
 
+    'sms' => [
+        'username' => env('SMS_USERNAME'),
+        'password' => env('SMS_PASSWORD'),
+        'source' => env('SMS_SOURCE'),
+        'api_url' => env('SMS_API_URL'),
+    ],
+
 ];

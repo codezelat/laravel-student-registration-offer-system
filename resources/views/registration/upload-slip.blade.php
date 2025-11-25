@@ -13,10 +13,10 @@
         <!-- Student Info -->
         <x-card class="bg-blue-50 border-blue-200">
             <div class="space-y-2">
-                <!-- <div class="flex justify-between">
+                <div class="flex justify-between">
                     <span class="font-medium text-gray-700">Registration ID:</span>
-                    <span class="font-bold text-blue-600">{{ $student->registration_id }}</span>
-                </div> -->
+                    <span class="font-bold text-blue-600">{{ $studentData['registration_id'] }}</span>
+                </div>
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-700">Student Name:</span>
                     <span class="font-semibold text-gray-800">{{ $studentData['full_name'] }}</span>
@@ -43,9 +43,9 @@
                 <p><strong>Branch:</strong> Colombo</p>
                 <p><strong>Amount:</strong> LKR 5,000.00</p>
             </div>
-            <!-- <p class="text-xs text-red-600 mt-3 font-medium">
-                * Please include your Registration ID ({{ $student->registration_id }}) in the payment reference
-            </p> -->
+            <p class="text-xs text-red-600 mt-3 font-medium">
+                * Please include your Registration ID ({{ $studentData['registration_id'] }}) in the payment reference
+            </p>
         </x-card>
 
         <!-- Upload Form -->

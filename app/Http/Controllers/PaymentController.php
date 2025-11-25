@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -71,6 +72,14 @@ class PaymentController extends Controller
                 'payment_date' => now(),
             ]));
 
+            // Send SMS notification
+            $smsService = new SmsService();
+            $smsService->sendRegistrationSuccessSms(
+                $student->contact_number,
+                $student->full_name,
+                $student->student_id
+            );
+
             // Clear session data
             session()->forget(['registration_data', 'registration_id']);
 
@@ -136,6 +145,14 @@ class PaymentController extends Controller
             'payment_date' => now(),
         ]));
 
+        // Send SMS notification
+        $smsService = new SmsService();
+        $smsService->sendRegistrationSuccessSms(
+            $student->contact_number,
+            $student->full_name,
+            $student->student_id
+        );
+
         // Clear session data
         session()->forget(['registration_data', 'registration_id', 'payhere_order_id']);
 
@@ -195,6 +212,14 @@ class PaymentController extends Controller
                         'amount_paid' => $payhere_amount,
                         'payment_date' => now(),
                     ]);
+
+                    // Send SMS notification
+                    $smsService = new SmsService();
+                    $smsService->sendRegistrationSuccessSms(
+                        $student->contact_number,
+                        $student->full_name,
+                        $student->student_id
+                    );
                 }
             }
         }
