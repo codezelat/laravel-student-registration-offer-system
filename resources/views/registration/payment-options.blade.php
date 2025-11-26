@@ -2,21 +2,27 @@
     <x-slot:title>Payment Options</x-slot:title>
 
     <div class="max-w-4xl mx-auto space-y-6">
-        <!-- Success Header -->
+        <!-- Header -->
         <div class="text-center space-y-4 animate-fade-in">
-            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full shadow-xl animate-bounce-slow">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full shadow-xl animate-bounce-slow">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
             
-            <div>
-                <h1 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-2">
-                    Registration Submitted!
+            <div class="max-w-2xl mx-auto">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4 tracking-tight">
+                    Registration <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-800">Pending!</span>
                 </h1>
-                <p class="text-lg text-neutral-600">
-                    Welcome, <span class="font-semibold text-primary-600">{{ $studentData['full_name'] }}</span>!
-                </p>
+                <div class="text-lg text-neutral-600 space-y-2">
+                    <p>
+                        Welcome, <span class="font-bold text-neutral-900">{{ $studentData['full_name'] }}</span>!
+                    </p>
+                    <p class="leading-relaxed">
+                        Your registration for the <span class="font-bold text-primary-600">{{ $studentData['selected_diploma'] }}</span> program is almost complete.
+                        <span class="block mt-1 font-medium text-neutral-800">Please complete the registration fee to finalize your enrollment.</span>
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -96,7 +102,7 @@
                                 <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">RECOMMENDED</span>
                             </div>
                             
-                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Pay Online Now</h3>
+                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Pay Using Your Card Now</h3>
                             <p class="text-sm text-neutral-700 mb-4 leading-relaxed">
                                 Quick and secure payment with PayHere. Instant confirmation upon payment.
                             </p>
@@ -106,7 +112,7 @@
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Instant processing</span>
+                                    <span>Instant registration to the program</span>
                                 </div>
                                 <div class="flex items-center space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,7 +124,7 @@
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Secure encryption</span>
+                                    <span>Secure encrypted payment processing</span>
                                 </div>
                             </div>
                             
@@ -166,7 +172,7 @@
                                 <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
-                                <span>Email confirmation after approval</span>
+                                <span>Confirmation only after approval</span>
                             </div>
                         </div>
                         
@@ -178,82 +184,6 @@
                         </div>
                     </div>
                 </a>
-            </div>
-        </div>
-
-        <!-- Bank Details -->
-        <div class="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-3xl p-6 md:p-8 border border-neutral-200/50">
-            <div class="flex items-start space-x-4 mb-4">
-                <div class="w-12 h-12 bg-neutral-800 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-neutral-900 mb-1">Bank Transfer Details</h3>
-                    <p class="text-sm text-neutral-600">Use these details for bank transfer payments</p>
-                </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 space-y-3">
-                <div class="flex justify-between items-center py-2 border-b border-neutral-100">
-                    <span class="text-sm text-neutral-600">Bank Name</span>
-                    <span class="font-semibold text-neutral-900">Commercial Bank</span>
-                </div>
-                <div class="flex justify-between items-center py-2 border-b border-neutral-100">
-                    <span class="text-sm text-neutral-600">Account Name</span>
-                    <span class="font-semibold text-neutral-900">Student Portal PVT LTD</span>
-                </div>
-                <div class="flex justify-between items-center py-2 border-b border-neutral-100">
-                    <span class="text-sm text-neutral-600">Account Number</span>
-                    <span class="font-semibold text-neutral-900">1234567890</span>
-                </div>
-                <div class="flex justify-between items-center py-2 border-b border-neutral-100">
-                    <span class="text-sm text-neutral-600">Branch</span>
-                    <span class="font-semibold text-neutral-900">Colombo</span>
-                </div>
-                <div class="flex justify-between items-center py-2">
-                    <span class="text-sm text-neutral-600">Amount</span>
-                    <span class="font-bold text-xl text-green-700">LKR 5,000.00</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Security Info -->
-        <div class="bg-blue-50 rounded-2xl p-6 border border-blue-200/50">
-            <div class="flex items-start space-x-3">
-                <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <div>
-                    <h3 class="font-semibold text-blue-900 mb-2">Secure Payment Guarantee</h3>
-                    <ul class="space-y-2 text-sm text-blue-800">
-                        <li class="flex items-start space-x-2">
-                            <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Your payment is secured with SSL encryption</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>All card information is handled securely by PayHere</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>We never store your card details</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Email confirmation sent after successful payment</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

@@ -22,10 +22,10 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'registration_id' => ['required', 'string', 'unique:students,registration_id'],
+            'registration_id' => ['required', 'string', 'regex:/^SITC\/2025\/\d+B\/(EN|PC|IT|HR|BM)\/\d{8}$/', 'unique:students,registration_id'],
             'full_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'name_with_initials' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'string', 'in:male,female,other'],
+            'gender' => ['required', 'string', 'in:male,female'],
             'nic' => ['required', 'string', 'regex:/^([0-9]{9}[vVxX]|[0-9]{12})$/', 'unique:students,nic'],
             'date_of_birth' => ['required', 'date', 'before:today', 'after:1950-01-01'],
             'email' => ['required', 'email', 'max:255', 'unique:students,email'],
@@ -35,7 +35,7 @@ class StoreStudentRequest extends FormRequest
             'home_contact_number' => ['nullable', 'string', 'regex:/^0[0-9]{9}$/'],
             'whatsapp_number' => ['required', 'string', 'regex:/^0[0-9]{9}$/', 'unique:students,whatsapp_number'],
             'terms_accepted' => ['required', 'accepted'],
-            'selected_diploma' => ['required', 'string', 'in:English,Psychology and Counseling,Information Technology,Human Resource Management,Business Management'],
+            'selected_diploma' => ['required', 'string', 'in:Diploma in English,Diploma in Psychology and Counseling,Diploma in Information Technology,Diploma in Human Resource Management,Diploma in Business Management'],
         ];
     }
 

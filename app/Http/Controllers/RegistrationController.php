@@ -40,8 +40,11 @@ class RegistrationController extends Controller
                 ->with('error', 'Please select a valid diploma option.');
         }
 
-        // Generate unique registration ID
-        $registrationId = $this->generateRegistrationId();
+        // Find the diploma config
+        $diplomaConfig = collect($diplomas)->firstWhere('name', $diploma);
+        
+        // Generate unique registration ID with diploma-specific prefix
+        $registrationId = $this->generateRegistrationId($diplomaConfig['reg_prefix']);
         $districts = config('districts');
 
         return view('registration.register', [
@@ -81,10 +84,12 @@ class RegistrationController extends Controller
     /**
      * Generate a unique registration ID
      */
-    private function generateRegistrationId(): string
+    private function generateRegistrationId(string $prefix): string
     {
         do {
-            $id = 'REG-' . date('Y') . '-' . strtoupper(Str::random(5));
+            // Generate 8-digit unique number
+            $uniqueCode = str_pad(rand(1, 99999999), 8, '0', STR_PAD_LEFT);
+            $id = $prefix . '/' . $uniqueCode;
         } while (Student::where('registration_id', $id)->exists());
 
         return $id;
