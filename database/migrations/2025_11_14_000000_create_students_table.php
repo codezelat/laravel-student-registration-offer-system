@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('registration_id')->unique();
             $table->string('full_name');
-            $table->string('nic')->unique();
+            $table->string('nic'); // Removed unique - will be composite unique with diploma
             $table->date('date_of_birth');
-            $table->string('contact_number')->unique();
-            $table->string('email')->unique();
+            $table->string('contact_number'); // Will be dropped later
+            $table->string('email'); // Removed unique - will be composite unique with diploma
             $table->enum('selected_diploma', ['English', 'IT', 'HR']);
             $table->timestamps();
 

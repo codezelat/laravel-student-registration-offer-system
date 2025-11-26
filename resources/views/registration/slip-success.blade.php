@@ -115,7 +115,7 @@
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Check your email for important updates</span>
+                            <span>Check your messages for payment confirmation</span>
                         </li>
                         <li class="flex items-start space-x-2">
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,17 +146,82 @@
                         Print Details
                     </button>
                 </div>
-
-                <!-- Support Information -->
-                <div class="pt-6 border-t border-gray-200 text-sm text-gray-600">
-                    <p>Need help? Contact us at:</p>
-                    <p class="font-medium text-blue-600 mt-1">support@studentportal.com</p>
-                    <p class="text-xs text-gray-500 mt-2">Reference: {{ $student->student_id }}</p>
-                </div>
             </div>
         </x-card>
     </div>
     </div>
+
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .max-w-4xl, .max-w-4xl * {
+                visibility: visible;
+            }
+            .max-w-4xl {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            
+            /* Hide non-essential elements */
+            button:not(.print-keep),
+            .print-hide,
+            header,
+            nav {
+                display: none !important;
+            }
+            
+            /* Optimize spacing for A4 */
+            .space-y-6 > * + * {
+                margin-top: 1rem !important;
+            }
+            
+            .p-6, .p-8 {
+                padding: 0.75rem !important;
+            }
+            
+            .md\:p-10, .md\:p-12 {
+                padding: 1rem !important;
+            }
+            
+            /* Prevent page breaks inside important elements */
+            .bg-gradient-to-r,
+            .bg-blue-50,
+            .bg-yellow-50 {
+                page-break-inside: avoid;
+            }
+            
+            /* Scale down for A4 */
+            html {
+                font-size: 12px;
+            }
+            
+            .text-3xl { font-size: 1.5rem !important; }
+            .text-4xl { font-size: 2rem !important; }
+            .text-lg { font-size: 1rem !important; }
+            
+            /* Remove shadows and decorative elements */
+            .shadow-lg, .shadow-xl, .shadow-2xl {
+                box-shadow: none !important;
+            }
+            
+            .animate-pulse,
+            .animate-spin {
+                animation: none !important;
+            }
+            
+            /* Force white background */
+            body {
+                background: white !important;
+            }
+        }
+    </style>
 
     <script>
         // Smooth scroll to top on page load

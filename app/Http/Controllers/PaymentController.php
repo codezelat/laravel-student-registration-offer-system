@@ -75,7 +75,7 @@ class PaymentController extends Controller
             // Send SMS notification
             $smsService = new SmsService();
             $smsService->sendRegistrationSuccessSms(
-                $student->contact_number,
+                $student->whatsapp_number,
                 $student->full_name,
                 $student->student_id
             );
@@ -148,7 +148,7 @@ class PaymentController extends Controller
         // Send SMS notification
         $smsService = new SmsService();
         $smsService->sendRegistrationSuccessSms(
-            $student->contact_number,
+            $student->whatsapp_number,
             $student->full_name,
             $student->student_id
         );
@@ -216,7 +216,7 @@ class PaymentController extends Controller
                     // Send SMS notification
                     $smsService = new SmsService();
                     $smsService->sendRegistrationSuccessSms(
-                        $student->contact_number,
+                        $student->whatsapp_number,
                         $student->full_name,
                         $student->student_id
                     );

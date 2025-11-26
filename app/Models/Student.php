@@ -19,7 +19,6 @@ class Student extends Model
         'gender',
         'nic',
         'date_of_birth',
-        'contact_number',
         'home_contact_number',
         'whatsapp_number',
         'email',

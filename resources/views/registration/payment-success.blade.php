@@ -297,5 +297,101 @@
         .animate-fade-in {
             animation: fade-in 0.8s ease-out;
         }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .max-w-4xl, .max-w-4xl * {
+                visibility: visible;
+            }
+            .max-w-4xl {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            
+            /* Hide buttons and non-essential elements */
+            button,
+            a[href],
+            .print-hide,
+            header,
+            nav,
+            .bg-blue-50:last-child {
+                display: none !important;
+            }
+            
+            /* Optimize spacing for A4 */
+            .mb-6, .mb-8 {
+                margin-bottom: 0.5rem !important;
+            }
+            
+            .space-y-6 > * + * {
+                margin-top: 0.75rem !important;
+            }
+            
+            .p-6, .p-8, .p-10 {
+                padding: 0.75rem !important;
+            }
+            
+            .md\:p-10, .md\:p-12 {
+                padding: 1rem !important;
+            }
+            
+            /* Prevent page breaks */
+            .bg-gradient-to-br,
+            .bg-white,
+            .rounded-3xl {
+                page-break-inside: avoid;
+            }
+            
+            /* Scale down text for A4 */
+            html {
+                font-size: 11px;
+            }
+            
+            .text-4xl { font-size: 1.75rem !important; }
+            .text-5xl { font-size: 2rem !important; }
+            .text-6xl { font-size: 2.5rem !important; }
+            .text-2xl { font-size: 1.25rem !important; }
+            .text-xl { font-size: 1rem !important; }
+            .text-lg { font-size: 0.95rem !important; }
+            
+            /* Remove decorative effects */
+            .shadow-lg, .shadow-xl, .shadow-2xl {
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+            }
+            
+            .animate-pulse,
+            .animate-ping,
+            .animate-bounce-slow {
+                animation: none !important;
+            }
+            
+            .transform,
+            .hover\:scale-105 {
+                transform: none !important;
+            }
+            
+            /* Simplify decorative circles */
+            .absolute.w-64,
+            .absolute.w-48 {
+                display: none !important;
+            }
+            
+            /* Force white background */
+            body {
+                background: white !important;
+            }
+            
+            /* Compact grid on print */
+            .grid.gap-4 {
+                gap: 0.5rem !important;
+            }
+        }
     </style>
 </x-layout>

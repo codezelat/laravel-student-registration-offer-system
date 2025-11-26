@@ -76,12 +76,6 @@
                         Print Confirmation
                     </button>
                 </div>
-
-                <!-- Support Information -->
-                <div class="pt-6 border-t border-gray-200 text-sm text-gray-600">
-                    <p>Need help? Contact us at:</p>
-                    <p class="font-medium text-blue-600 mt-1">support@studentportal.com</p>
-                </div>
             </div>
         </x-card>
     </div>

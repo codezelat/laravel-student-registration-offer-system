@@ -21,19 +21,57 @@ class StoreStudentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $selectedDiploma = $this->input('selected_diploma');
+        
         return [
             'registration_id' => ['required', 'string', 'regex:/^SITC\/2025\/\d+B\/(EN|PC|IT|HR|BM)\/\d{8}$/', 'unique:students,registration_id'],
             'full_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'name_with_initials' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'in:male,female'],
-            'nic' => ['required', 'string', 'regex:/^([0-9]{9}[vVxX]|[0-9]{12})$/', 'unique:students,nic'],
+            'nic' => [
+                'required', 
+                'string', 
+                'regex:/^([0-9]{9}[vVxX]|[0-9]{12})$/',
+                function ($attribute, $value, $fail) use ($selectedDiploma) {
+                    $exists = \App\Models\Student::where('nic', $value)
+                        ->where('selected_diploma', $selectedDiploma)
+                        ->exists();
+                    if ($exists) {
+                        $fail('This NIC is already registered for the selected diploma.');
+                    }
+                }
+            ],
             'date_of_birth' => ['required', 'date', 'before:today', 'after:1950-01-01'],
-            'email' => ['required', 'email', 'max:255', 'unique:students,email'],
+            'email' => [
+                'required', 
+                'email', 
+                'max:255',
+                function ($attribute, $value, $fail) use ($selectedDiploma) {
+                    $exists = \App\Models\Student::where('email', $value)
+                        ->where('selected_diploma', $selectedDiploma)
+                        ->exists();
+                    if ($exists) {
+                        $fail('This email is already registered for the selected diploma.');
+                    }
+                }
+            ],
             'permanent_address' => ['required', 'string', 'max:500'],
             'postal_code' => ['required', 'string', 'regex:/^[0-9]{5}$/'],
             'district' => ['required', 'string'],
             'home_contact_number' => ['nullable', 'string', 'regex:/^0[0-9]{9}$/'],
-            'whatsapp_number' => ['required', 'string', 'regex:/^0[0-9]{9}$/', 'unique:students,whatsapp_number'],
+            'whatsapp_number' => [
+                'required', 
+                'string', 
+                'regex:/^0[0-9]{9}$/',
+                function ($attribute, $value, $fail) use ($selectedDiploma) {
+                    $exists = \App\Models\Student::where('whatsapp_number', $value)
+                        ->where('selected_diploma', $selectedDiploma)
+                        ->exists();
+                    if ($exists) {
+                        $fail('This WhatsApp number is already registered for the selected diploma.');
+                    }
+                }
+            ],
             'terms_accepted' => ['required', 'accepted'],
             'selected_diploma' => ['required', 'string', 'in:Diploma in English,Diploma in Psychology and Counseling,Diploma in Information Technology,Diploma in Human Resource Management,Diploma in Business Management'],
         ];
@@ -54,13 +92,11 @@ class StoreStudentRequest extends FormRequest
             'gender.in' => 'Please select a valid gender option.',
             'nic.required' => 'Please enter your NIC number.',
             'nic.regex' => 'Please enter a valid NIC number (e.g., 123456789V or 123456789012).',
-            'nic.unique' => 'This NIC number is already registered.',
             'date_of_birth.required' => 'Please select your date of birth.',
             'date_of_birth.before' => 'Date of birth must be in the past.',
             'date_of_birth.after' => 'Please enter a valid date of birth.',
             'email.required' => 'Please enter your email address.',
             'email.email' => 'Please enter a valid email address.',
-            'email.unique' => 'This email address is already registered.',
             'permanent_address.required' => 'Please enter your permanent address.',
             'permanent_address.max' => 'Address cannot exceed 500 characters.',
             'postal_code.required' => 'Please enter your postal code.',
@@ -69,7 +105,6 @@ class StoreStudentRequest extends FormRequest
             'home_contact_number.regex' => 'Please enter a valid Sri Lankan mobile number (e.g., 0771234567).',
             'whatsapp_number.required' => 'Please enter your WhatsApp number.',
             'whatsapp_number.regex' => 'Please enter a valid Sri Lankan mobile number (e.g., 0771234567).',
-            'whatsapp_number.unique' => 'This WhatsApp number is already registered.',
             'terms_accepted.required' => 'You must accept the terms and conditions to proceed.',
             'terms_accepted.accepted' => 'You must accept the terms and conditions to proceed.',
             'selected_diploma.required' => 'Please select a diploma.',
