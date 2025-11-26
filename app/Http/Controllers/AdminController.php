@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -46,8 +47,8 @@ class AdminController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('full_name', 'like', '%' . $search . '%')
-                  ->orWhere('id', 'like', '%' . $search . '%')
-                  ->orWhere('contact_number', 'like', '%' . $search . '%')
+                  ->orWhere('registration_id', 'like', '%' . $search . '%')
+                  ->orWhere('whatsapp_number', 'like', '%' . $search . '%')
                   ->orWhere('nic', 'like', '%' . $search . '%')
                   ->orWhere('email', 'like', '%' . $search . '%');
             });
@@ -58,7 +59,7 @@ class AdminController extends Controller
             $query->where('selected_diploma', $request->diploma);
         }
 
-        $students = $query->orderBy('created_at', 'desc')->paginate(25);
+        $students = $query->orderBy('created_at', 'desc')->paginate(15);
 
         // Get unique diplomas for filter dropdown
         $diplomas = Student::distinct()->pluck('selected_diploma')->filter()->sort()->values();
@@ -79,8 +80,8 @@ class AdminController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('full_name', 'like', '%' . $search . '%')
-                  ->orWhere('id', 'like', '%' . $search . '%')
-                  ->orWhere('contact_number', 'like', '%' . $search . '%')
+                  ->orWhere('registration_id', 'like', '%' . $search . '%')
+                  ->orWhere('whatsapp_number', 'like', '%' . $search . '%')
                   ->orWhere('nic', 'like', '%' . $search . '%')
                   ->orWhere('email', 'like', '%' . $search . '%');
             });
@@ -98,46 +99,56 @@ class AdminController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set headers
-        $sheet->setCellValue('A1', 'Student ID');
+        $sheet->setCellValue('A1', 'Registration ID');
         $sheet->setCellValue('B1', 'Full Name');
-        $sheet->setCellValue('C1', 'NIC');
-        $sheet->setCellValue('D1', 'Date of Birth');
-        $sheet->setCellValue('E1', 'Contact Number');
-        $sheet->setCellValue('F1', 'Email Address');
-        $sheet->setCellValue('G1', 'Selected Diploma');
-        $sheet->setCellValue('H1', 'Payment Method');
-        $sheet->setCellValue('I1', 'Payment Status');
-        $sheet->setCellValue('J1', 'Amount Paid');
-        $sheet->setCellValue('K1', 'Payment Date');
-        $sheet->setCellValue('L1', 'Payment Slip');
+        $sheet->setCellValue('C1', 'Name with Initials');
+        $sheet->setCellValue('D1', 'Gender');
+        $sheet->setCellValue('E1', 'NIC');
+        $sheet->setCellValue('F1', 'Date of Birth');
+        $sheet->setCellValue('G1', 'Email');
+        $sheet->setCellValue('H1', 'WhatsApp Number');
+        $sheet->setCellValue('I1', 'Home Contact');
+        $sheet->setCellValue('J1', 'Permanent Address');
+        $sheet->setCellValue('K1', 'Postal Code');
+        $sheet->setCellValue('L1', 'District');
+        $sheet->setCellValue('M1', 'Selected Diploma');
+        $sheet->setCellValue('N1', 'Payment Method');
+        $sheet->setCellValue('O1', 'Amount Paid');
+        $sheet->setCellValue('P1', 'Payment Date');
+        $sheet->setCellValue('Q1', 'Payment Slip');
 
         // Style headers
-        $sheet->getStyle('A1:L1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:L1')->getFill()
+        $sheet->getStyle('A1:Q1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:Q1')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('FF667eea');
-        $sheet->getStyle('A1:L1')->getFont()->getColor()->setARGB('FFFFFFFF');
+        $sheet->getStyle('A1:R1')->getFont()->getColor()->setARGB('FFFFFFFF');
 
         // Add data
         $row = 2;
         foreach ($students as $student) {
-            $sheet->setCellValue('A' . $row, $student->student_id ?? 'N/A');
+            $sheet->setCellValue('A' . $row, $student->registration_id ?? 'N/A');
             $sheet->setCellValue('B' . $row, $student->full_name);
-            $sheet->setCellValue('C' . $row, $student->nic);
-            $sheet->setCellValue('D' . $row, $student->date_of_birth ? $student->date_of_birth->format('Y-m-d') : 'N/A');
-            $sheet->setCellValue('E' . $row, $student->contact_number);
-            $sheet->setCellValue('F' . $row, $student->email);
-            $sheet->setCellValue('G' . $row, $student->selected_diploma);
-            $sheet->setCellValue('H' . $row, ucfirst($student->payment_method ?? 'N/A'));
-            $sheet->setCellValue('I' . $row, ucfirst($student->payment_status ?? 'N/A'));
-            $sheet->setCellValue('J' . $row, $student->amount_paid ? 'LKR ' . number_format($student->amount_paid, 2) : 'N/A');
-            $sheet->setCellValue('K' . $row, $student->payment_date ? $student->payment_date->format('Y-m-d H:i:s') : 'N/A');
-            $sheet->setCellValue('L' . $row, $student->payment_slip ? url('storage/' . $student->payment_slip) : 'N/A');
+            $sheet->setCellValue('C' . $row, $student->name_with_initials ?? 'N/A');
+            $sheet->setCellValue('D' . $row, ucfirst($student->gender ?? 'N/A'));
+            $sheet->setCellValue('E' . $row, $student->nic);
+            $sheet->setCellValue('F' . $row, $student->date_of_birth ? $student->date_of_birth->format('Y-m-d') : 'N/A');
+            $sheet->setCellValue('G' . $row, $student->email);
+            $sheet->setCellValue('H' . $row, $student->whatsapp_number ?? 'N/A');
+            $sheet->setCellValue('I' . $row, $student->home_contact_number ?? 'N/A');
+            $sheet->setCellValue('J' . $row, $student->permanent_address ?? 'N/A');
+            $sheet->setCellValue('K' . $row, $student->postal_code ?? 'N/A');
+            $sheet->setCellValue('L' . $row, $student->district ?? 'N/A');
+            $sheet->setCellValue('M' . $row, $student->selected_diploma);
+            $sheet->setCellValue('N' . $row, ucfirst($student->payment_method ?? 'N/A'));
+            $sheet->setCellValue('O' . $row, $student->amount_paid ? 'LKR ' . number_format($student->amount_paid, 2) : 'N/A');
+            $sheet->setCellValue('P' . $row, $student->payment_date ? $student->payment_date->format('Y-m-d H:i:s') : 'N/A');
+            $sheet->setCellValue('Q' . $row, $student->payment_slip ? url('storage/' . $student->payment_slip) : 'N/A');
             $row++;
         }
 
         // Auto-size columns
-        foreach (range('A', 'L') as $col) {
+        foreach (range('A', 'R') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
@@ -176,7 +187,10 @@ class AdminController extends Controller
         }
 
         $student = Student::findOrFail($id);
-        return view('admin.edit', compact('student'));
+        $diplomas = config('diplomas');
+        $districts = config('districts');
+        
+        return view('admin.edit', compact('student', 'diplomas', 'districts'));
     }
 
     public function update(Request $request, $id)
@@ -189,12 +203,17 @@ class AdminController extends Controller
         
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
+            'name_with_initials' => 'nullable|string|max:255',
+            'gender' => 'nullable|string|in:male,female',
             'nic' => 'required|string|max:20',
             'date_of_birth' => 'required|date',
-            'contact_number' => 'required|string|max:20',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'home_contact_number' => 'nullable|string|max:20',
             'email' => 'required|email|max:255',
+            'permanent_address' => 'nullable|string',
+            'postal_code' => 'nullable|string|max:10',
+            'district' => 'nullable|string',
             'selected_diploma' => 'required|string',
-            'payment_status' => 'nullable|string',
         ]);
 
         $student->update($validated);
@@ -211,8 +230,8 @@ class AdminController extends Controller
         $student = Student::findOrFail($id);
         
         // Delete payment slip file if exists
-        if ($student->payment_slip && \Storage::exists('public/' . $student->payment_slip)) {
-            \Storage::delete('public/' . $student->payment_slip);
+        if ($student->payment_slip && Storage::exists('public/' . $student->payment_slip)) {
+            Storage::delete('public/' . $student->payment_slip);
         }
         
         $student->delete();

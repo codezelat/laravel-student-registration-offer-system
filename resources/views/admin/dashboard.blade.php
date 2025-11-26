@@ -38,17 +38,15 @@
                 
                 <!-- Actions -->
                 <div class="flex items-center space-x-3">
-                    <div class="hidden sm:block text-right mr-4">
-                        <p class="text-sm font-medium text-neutral-900">Administrator</p>
-                        <p class="text-xs text-neutral-500">new-dip@sitc.com</p>
-                    </div>
-                    <a href="{{ route('admin.logout') }}" 
-                       class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all flex items-center space-x-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        <span>Logout</span>
-                    </a>
+                    <form action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            <span>Logout</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -71,7 +69,7 @@
                         type="text" 
                         name="search" 
                         value="{{ request('search') }}"
-                        placeholder="Search by name, ID, NIC, contact, or email..."
+                        placeholder="Search by Name, Registration ID, NIC, WhatsApp, or email..."
                         class="w-full pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
                     >
                 </div>
@@ -134,8 +132,7 @@
                             <th class="px-6 py-4 text-left text-sm font-semibold">Full Name</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Selected Diploma</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">NIC</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold">Contact</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold">Email</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold">WhatsApp</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Payment Slip</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Actions</th>
                         </tr>
@@ -144,7 +141,7 @@
                         @forelse($students as $student)
                             <tr class="hover:bg-neutral-50 transition-colors">
                                 <td class="px-6 py-4">
-                                    <span class="text-sm font-medium text-neutral-900">{{ $student->student_id ?? 'N/A' }}</span>
+                                    <span class="text-sm font-medium text-neutral-900">{{ $student->registration_id ?? 'N/A' }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <p class="text-sm font-medium text-neutral-900">{{ $student->full_name }}</p>
@@ -156,10 +153,7 @@
                                     <span class="text-sm text-neutral-700">{{ $student->nic }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-sm text-neutral-700">{{ $student->contact_number }}</span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span class="text-sm text-neutral-700">{{ $student->email }}</span>
+                                    <span class="text-sm text-neutral-700">{{ $student->whatsapp_number ?? 'N/A' }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($student->payment_method === 'online' && $student->payment_status === 'completed')
@@ -243,33 +237,35 @@
             @if($students->hasPages())
                 <div class="px-6 py-4 border-t border-neutral-100 bg-neutral-50">
                     <div class="flex items-center justify-between">
-                        <div class="flex gap-2">
+                        <div class="text-sm text-neutral-600">
+                            Showing {{ $students->firstItem() }} to {{ $students->lastItem() }} of {{ $students->total() }} results
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
                             @if ($students->onFirstPage())
                                 <span class="px-4 py-2 bg-neutral-200 text-neutral-400 rounded-lg cursor-not-allowed">Previous</span>
                             @else
-                                <a href="{{ $students->previousPageUrl() }}&search={{ request('search') }}&diploma={{ request('diploma') }}" 
+                                <a href="{{ $students->appends(request()->query())->previousPageUrl() }}" 
                                    class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-lg font-medium hover:border-primary-500 hover:text-primary-600 transition-all">
                                     Previous
                                 </a>
                             @endif
-                        </div>
 
-                        <div class="flex gap-2">
-                            @foreach ($students->getUrlRange(1, $students->lastPage()) as $page => $url)
-                                @if ($page == $students->currentPage())
-                                    <span class="px-4 py-2 bg-gradient-primary text-white rounded-lg font-semibold">{{ $page }}</span>
-                                @else
-                                    <a href="{{ $url }}&search={{ request('search') }}&diploma={{ request('diploma') }}" 
-                                       class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-lg font-medium hover:border-primary-500 hover:text-primary-600 transition-all">
-                                        {{ $page }}
-                                    </a>
-                                @endif
-                            @endforeach
-                        </div>
+                            <div class="flex gap-1">
+                                @foreach ($students->getUrlRange(1, $students->lastPage()) as $page => $url)
+                                    @if ($page == $students->currentPage())
+                                        <span class="px-4 py-2 bg-gradient-primary text-white rounded-lg font-semibold">{{ $page }}</span>
+                                    @else
+                                        <a href="{{ $students->appends(request()->query())->url($page) }}" 
+                                           class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-lg font-medium hover:border-primary-500 hover:text-primary-600 transition-all">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+                            </div>
 
-                        <div class="flex gap-2">
                             @if ($students->hasMorePages())
-                                <a href="{{ $students->nextPageUrl() }}&search={{ request('search') }}&diploma={{ request('diploma') }}" 
+                                <a href="{{ $students->appends(request()->query())->nextPageUrl() }}" 
                                    class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-lg font-medium hover:border-primary-500 hover:text-primary-600 transition-all">
                                     Next
                                 </a>
@@ -308,12 +304,25 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-center text-neutral-900 mb-2">Delete Student</h3>
-                <p class="text-center text-neutral-600 mb-6">Are you sure you want to delete <strong id="deleteStudentName"></strong>? This action cannot be undone.</p>
+                <p class="text-center text-neutral-600 mb-4">Are you sure you want to delete <strong id="deleteStudentName"></strong>?</p>
+                <p class="text-center text-neutral-600 mb-4">This will also delete the payment slip image if available. This action cannot be undone.</p>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-neutral-700 mb-2">
+                        Type <strong class="text-red-600">DELETE</strong> to confirm:
+                    </label>
+                    <input 
+                        type="text" 
+                        id="deleteConfirmInput" 
+                        class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" 
+                        placeholder="Type DELETE"
+                        oninput="validateDeleteInput()"
+                    >
+                </div>
                 <div class="flex space-x-3">
                     <button onclick="closeDeleteModal()" class="flex-1 px-4 py-2 bg-neutral-200 hover:bg-neutral-300 text-neutral-700 rounded-lg font-medium transition-colors">
                         Cancel
                     </button>
-                    <button onclick="confirmDelete()" class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                    <button id="confirmDeleteBtn" onclick="confirmDelete()" disabled class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-medium transition-colors opacity-50 cursor-not-allowed">
                         Delete
                     </button>
                 </div>
@@ -325,15 +334,11 @@
         let deleteStudentId = null;
 
         function viewStudent(id) {
-            fetch(`/admin/student/${id}`)
+            fetch(`/sitc-admin-area/student/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     const content = `
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <p class="text-sm text-neutral-500">Student ID</p>
-                                <p class="font-semibold text-neutral-900">${data.student_id || 'N/A'}</p>
-                            </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Registration ID</p>
                                 <p class="font-semibold text-neutral-900">${data.registration_id || 'N/A'}</p>
@@ -341,6 +346,14 @@
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Full Name</p>
                                 <p class="font-semibold text-neutral-900">${data.full_name}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm text-neutral-500">Name with Initials</p>
+                                <p class="font-semibold text-neutral-900">${data.name_with_initials || 'N/A'}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm text-neutral-500">Gender</p>
+                                <p class="font-semibold text-neutral-900">${data.gender ? data.gender.charAt(0).toUpperCase() + data.gender.slice(1) : 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">NIC</p>
@@ -351,14 +364,30 @@
                                 <p class="font-semibold text-neutral-900">${data.date_of_birth || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
-                                <p class="text-sm text-neutral-500">Contact Number</p>
-                                <p class="font-semibold text-neutral-900">${data.contact_number}</p>
+                                <p class="text-sm text-neutral-500">WhatsApp Number</p>
+                                <p class="font-semibold text-neutral-900">${data.whatsapp_number || 'N/A'}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm text-neutral-500">Home Contact</p>
+                                <p class="font-semibold text-neutral-900">${data.home_contact_number || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Email Address</p>
                                 <p class="font-semibold text-neutral-900">${data.email}</p>
                             </div>
+                            <div class="md:col-span-2 space-y-1">
+                                <p class="text-sm text-neutral-500">Permanent Address</p>
+                                <p class="font-semibold text-neutral-900">${data.permanent_address || 'N/A'}</p>
+                            </div>
                             <div class="space-y-1">
+                                <p class="text-sm text-neutral-500">Postal Code</p>
+                                <p class="font-semibold text-neutral-900">${data.postal_code || 'N/A'}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm text-neutral-500">District</p>
+                                <p class="font-semibold text-neutral-900">${data.district || 'N/A'}</p>
+                            </div>
+                            <div class="md:col-span-2 space-y-1">
                                 <p class="text-sm text-neutral-500">Selected Diploma</p>
                                 <p class="font-semibold text-neutral-900">${data.selected_diploma}</p>
                             </div>
@@ -406,24 +435,45 @@
         }
 
         function editStudent(id) {
-            window.location.href = `/admin/student/${id}/edit`;
+            window.location.href = `/sitc-admin-area/student/${id}/edit`;
         }
 
         function deleteStudent(id, name) {
             deleteStudentId = id;
             document.getElementById('deleteStudentName').textContent = name;
+            document.getElementById('deleteConfirmInput').value = '';
+            document.getElementById('confirmDeleteBtn').disabled = true;
+            document.getElementById('confirmDeleteBtn').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('confirmDeleteBtn').classList.remove('hover:bg-red-700');
             document.getElementById('deleteModal').classList.remove('hidden');
         }
 
         function closeDeleteModal() {
             document.getElementById('deleteModal').classList.add('hidden');
+            document.getElementById('deleteConfirmInput').value = '';
+            document.getElementById('confirmDeleteBtn').disabled = true;
             deleteStudentId = null;
+        }
+
+        function validateDeleteInput() {
+            const input = document.getElementById('deleteConfirmInput').value;
+            const deleteBtn = document.getElementById('confirmDeleteBtn');
+            
+            if (input === 'DELETE') {
+                deleteBtn.disabled = false;
+                deleteBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                deleteBtn.classList.add('hover:bg-red-700');
+            } else {
+                deleteBtn.disabled = true;
+                deleteBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                deleteBtn.classList.remove('hover:bg-red-700');
+            }
         }
 
         function confirmDelete() {
             if (!deleteStudentId) return;
 
-            fetch(`/admin/student/${deleteStudentId}`, {
+            fetch(`/sitc-admin-area/student/${deleteStudentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
