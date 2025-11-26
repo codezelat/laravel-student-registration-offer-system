@@ -6,10 +6,32 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 border border-neutral-200/50">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-sm font-medium text-neutral-600">Registration Progress</span>
-                <span class="text-sm font-semibold text-primary-600">Step 1 of 2</span>
+                <span class="text-sm font-semibold text-primary-600">Step 1 of 3</span>
             </div>
             <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-primary w-1/2 rounded-full transition-all duration-500"></div>
+                <div class="h-full bg-gradient-primary w-1/3 rounded-full transition-all duration-500"></div>
+            </div>
+            
+            <!-- Step Labels -->
+            <div class="grid grid-cols-3 gap-4 mt-4">
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-primary-500 text-white">
+                        1
+                    </div>
+                    <p class="text-xs font-medium text-primary-600">Details</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-neutral-200 text-neutral-500">
+                        2
+                    </div>
+                    <p class="text-xs font-medium text-neutral-500">Payment</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-neutral-200 text-neutral-500">
+                        3
+                    </div>
+                    <p class="text-xs font-medium text-neutral-500">Complete</p>
+                </div>
             </div>
         </div>
 

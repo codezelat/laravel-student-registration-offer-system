@@ -17,6 +17,34 @@
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
+        
+        /* Page transition animations */
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        main {
+            animation: pageEnter 0.5s ease-out;
+        }
+        
+        /* Smooth transitions for all interactive elements */
+        a, button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Glass effect for header */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body class="bg-neutral-50 min-h-screen antialiased">

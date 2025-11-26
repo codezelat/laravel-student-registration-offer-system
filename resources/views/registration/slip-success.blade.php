@@ -1,7 +1,47 @@
 <x-layout>
     <x-slot:title>Payment Slip Uploaded</x-slot:title>
 
-    <div class="flex items-center justify-center min-h-[60vh]">
+    <div class="max-w-4xl mx-auto">
+        <!-- Progress Indicator -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-neutral-200/50 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-medium text-neutral-600">Registration Progress</span>
+                <span class="text-sm font-semibold text-yellow-600">Step 3 of 3 - Under Review</span>
+            </div>
+            <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-yellow-500 to-orange-500 w-full rounded-full transition-all duration-500"></div>
+            </div>
+            
+            <!-- Step Labels -->
+            <div class="grid grid-cols-3 gap-4 mt-4">
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-green-500 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-green-600">Details</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-green-500 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-green-600">Payment</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center text-sm font-bold bg-yellow-500 text-white">
+                        <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-yellow-600">Pending</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="flex items-center justify-center">
         <x-card class="max-w-2xl w-full">
             <div class="text-center space-y-6">
                 <!-- Success Icon -->
@@ -116,4 +156,12 @@
             </div>
         </x-card>
     </div>
+    </div>
+
+    <script>
+        // Smooth scroll to top on page load
+        window.addEventListener('load', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </x-layout>

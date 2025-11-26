@@ -64,8 +64,17 @@ class RegistrationController extends Controller
         // Store registration data in session (don't save to DB yet)
         session()->put('registration_data', $validated);
         session()->put('registration_id', $validated['registration_id']);
+        session()->put('current_step', 2); // Move to payment step
 
-        // Redirect to payment options
+        // Return JSON for AJAX handling
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Registration data saved. Please proceed to payment.'
+            ]);
+        }
+
+        // Redirect to payment options (fallback)
         return redirect()->route('payment.options');
     }
 
