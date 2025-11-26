@@ -72,21 +72,21 @@
                 
                 <!-- Diploma Options -->
                 <div class="space-y-4">
-                    <!-- Diploma in English -->
+                    @foreach($diplomas as $index => $diploma)
                     <label 
-                        @click="selected = 'English'"
+                        @click="selected = '{{ $diploma['name'] }}'"
                         class="block cursor-pointer group"
                     >
                         <div 
                             class="relative p-6 md:p-8 rounded-2xl border-2 transition-smooth hover:shadow-lg"
-                            :class="selected === 'English' ? 'border-primary-500 bg-primary-50 shadow-lg' : 'border-neutral-200 hover:border-primary-300 bg-white'"
+                            :class="selected === '{{ $diploma['name'] }}' ? 'border-primary-500 bg-primary-50 shadow-lg' : 'border-neutral-200 hover:border-primary-300 bg-white'"
                         >
                             <div class="flex items-start space-x-4">
                                 <!-- Radio Button -->
                                 <div class="flex-shrink-0 mt-1">
                                     <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-smooth"
-                                         :class="selected === 'English' ? 'border-primary-600 bg-primary-600' : 'border-neutral-300'">
-                                        <svg x-show="selected === 'English'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                         :class="selected === '{{ $diploma['name'] }}' ? 'border-primary-600 bg-primary-600' : 'border-neutral-300'">
+                                        <svg x-show="selected === '{{ $diploma['name'] }}'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
@@ -94,130 +94,12 @@
                                 
                                 <!-- Content -->
                                 <div class="flex-1">
-                                    <div class="flex items-center space-x-3 mb-3">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="text-xl font-bold text-neutral-900">Diploma in English</h3>
-                                            <p class="text-sm text-neutral-600">Language & Communication</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-neutral-700 mb-4 leading-relaxed">
-                                        Master the English language and develop exceptional communication skills for global opportunities.
-                                    </p>
-                                    
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Writing</span>
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Speaking</span>
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Grammar</span>
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Literature</span>
-                                    </div>
+                                    <h3 class="text-lg md:text-xl font-bold text-neutral-900">{{ $diploma['full_name'] }}</h3>
                                 </div>
                             </div>
                         </div>
                     </label>
-
-                    <!-- Diploma in IT -->
-                    <label 
-                        @click="selected = 'IT'"
-                        class="block cursor-pointer group"
-                    >
-                        <div 
-                            class="relative p-6 md:p-8 rounded-2xl border-2 transition-smooth hover:shadow-lg"
-                            :class="selected === 'IT' ? 'border-primary-500 bg-primary-50 shadow-lg' : 'border-neutral-200 hover:border-primary-300 bg-white'"
-                        >
-                            <div class="flex items-start space-x-4">
-                                <!-- Radio Button -->
-                                <div class="flex-shrink-0 mt-1">
-                                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-smooth"
-                                         :class="selected === 'IT' ? 'border-primary-600 bg-primary-600' : 'border-neutral-300'">
-                                        <svg x-show="selected === 'IT'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                
-                                <!-- Content -->
-                                <div class="flex-1">
-                                    <div class="flex items-center space-x-3 mb-3">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="text-xl font-bold text-neutral-900">Diploma in IT</h3>
-                                            <p class="text-sm text-neutral-600">Information Technology</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-neutral-700 mb-4 leading-relaxed">
-                                        Build your career in technology with comprehensive training in software development and IT systems.
-                                    </p>
-                                    
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Programming</span>
-                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Web Development</span>
-                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Databases</span>
-                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Networking</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </label>
-
-                    <!-- Diploma in HR -->
-                    <label 
-                        @click="selected = 'HR'"
-                        class="block cursor-pointer group"
-                    >
-                        <div 
-                            class="relative p-6 md:p-8 rounded-2xl border-2 transition-smooth hover:shadow-lg"
-                            :class="selected === 'HR' ? 'border-primary-500 bg-primary-50 shadow-lg' : 'border-neutral-200 hover:border-primary-300 bg-white'"
-                        >
-                            <div class="flex items-start space-x-4">
-                                <!-- Radio Button -->
-                                <div class="flex-shrink-0 mt-1">
-                                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-smooth"
-                                         :class="selected === 'HR' ? 'border-primary-600 bg-primary-600' : 'border-neutral-300'">
-                                        <svg x-show="selected === 'HR'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                
-                                <!-- Content -->
-                                <div class="flex-1">
-                                    <div class="flex items-center space-x-3 mb-3">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="text-xl font-bold text-neutral-900">Diploma in HR</h3>
-                                            <p class="text-sm text-neutral-600">Human Resource Management</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-neutral-700 mb-4 leading-relaxed">
-                                        Become an expert in managing people and organizations with strategic HR practices.
-                                    </p>
-                                    
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Recruitment</span>
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Training</span>
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Performance</span>
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Strategy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </label>
+                    @endforeach
                 </div>
 
                 <!-- Continue Button -->

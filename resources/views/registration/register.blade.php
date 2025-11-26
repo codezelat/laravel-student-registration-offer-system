@@ -71,7 +71,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-green-700 font-medium">Selected Program</p>
-                    <p class="text-xl font-bold text-green-900">Diploma in {{ $diploma }}</p>
+                    <p class="text-xl font-bold text-green-900">{{ $diploma }}</p>
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@
         <!-- Registration Form Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-neutral-200/50 p-8 md:p-10">
             <div class="mb-8">
-                <h2 class="text-3xl font-bold text-neutral-900 mb-2">Personal Information</h2>
-                <p class="text-neutral-600">Please fill in your details accurately</p>
+                <h2 class="text-3xl font-bold text-neutral-900 mb-2">Student Registration Details</h2>
+                <p class="text-neutral-600">Please fill out the form accurately.</p>
             </div>
             
             @if(session('error'))
@@ -94,158 +94,258 @@
                 </div>
             @endif
 
-            <form action="{{ route('register.store') }}" method="POST" class="space-y-6">
+            <form action="{{ route('register.store') }}" method="POST" class="space-y-8">
                 @csrf
                 
                 <input type="hidden" name="registration_id" value="{{ $registrationId }}">
                 <input type="hidden" name="selected_diploma" value="{{ $diploma }}">
 
-                <!-- Full Name -->
+                <!-- Registration ID Display (Read-only) -->
                 <div class="space-y-2">
-                    <label for="full_name" class="block text-sm font-semibold text-neutral-700">
-                        Full Name <span class="text-red-500">*</span>
+                    <label class="block text-sm font-semibold text-neutral-700">
+                        Register ID <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
+                        <input 
+                            type="text" 
+                            value="{{ $registrationId }}"
+                            readonly
+                            class="w-full pl-12 pr-4 py-3.5 bg-green-50 border-2 border-green-300 rounded-xl text-neutral-900 font-semibold cursor-not-allowed"
+                        >
+                    </div>
+                    <p class="text-xs text-neutral-500">Your unique registration ID. Please save this for future reference.</p>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-neutral-900 border-b-2 border-neutral-200 pb-2">Personal Information</h3>
+                    
+                    <!-- Full Name -->
+                    <div class="space-y-2">
+                        <label for="full_name" class="block text-sm font-semibold text-neutral-700">
+                            Full Name <span class="text-red-500">*</span>
+                        </label>
                         <input 
                             type="text" 
                             id="full_name" 
                             name="full_name"
                             value="{{ old('full_name') }}"
-                            placeholder="Enter your full name"
-                            class="w-full pl-12 pr-4 py-3.5 bg-neutral-50 border-2 @error('full_name') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
+                            placeholder="As per NIC/Passport"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('full_name') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
+                        @error('full_name')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('full_name')
-                        <p class="text-sm text-red-600 flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ $message }}</span>
-                        </p>
-                    @enderror
-                </div>
 
-                <!-- NIC -->
-                <div class="space-y-2">
-                    <label for="nic" class="block text-sm font-semibold text-neutral-700">
-                        National Identity Card (NIC) <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                            </svg>
-                        </div>
+                    <!-- Name With Initials -->
+                    <div class="space-y-2">
+                        <label for="name_with_initials" class="block text-sm font-semibold text-neutral-700">
+                            Name With Initials <span class="text-red-500">*</span>
+                        </label>
                         <input 
                             type="text" 
-                            id="nic" 
-                            name="nic"
-                            value="{{ old('nic') }}"
-                            placeholder="123456789V or 123456789012"
-                            class="w-full pl-12 pr-4 py-3.5 bg-neutral-50 border-2 @error('nic') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
+                            id="name_with_initials" 
+                            name="name_with_initials"
+                            value="{{ old('name_with_initials') }}"
+                            placeholder="e.g., A. B. C. Perera"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('name_with_initials') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
+                        @error('name_with_initials')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('nic')
-                        <p class="text-sm text-red-600 flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ $message }}</span>
-                        </p>
-                    @enderror
-                </div>
 
-                <!-- Date of Birth -->
-                <div class="space-y-2">
-                    <label for="date_of_birth" class="block text-sm font-semibold text-neutral-700">
-                        Date of Birth <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
+                    <!-- Gender -->
+                    <div class="space-y-2">
+                        <label for="gender" class="block text-sm font-semibold text-neutral-700">
+                            Gender <span class="text-red-500">*</span>
+                        </label>
+                        <select 
+                            id="gender" 
+                            name="gender"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('gender') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                            <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                        @error('gender')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="space-y-2">
+                        <label for="date_of_birth" class="block text-sm font-semibold text-neutral-700">
+                            Date of Birth <span class="text-red-500">*</span>
+                        </label>
                         <input 
                             type="date" 
                             id="date_of_birth" 
                             name="date_of_birth"
                             value="{{ old('date_of_birth') }}"
-                            class="w-full pl-12 pr-4 py-3.5 bg-neutral-50 border-2 @error('date_of_birth') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900"
+                            placeholder="yyyy-mm-dd"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('date_of_birth') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
+                        @error('date_of_birth')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('date_of_birth')
-                        <p class="text-sm text-red-600 flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ $message }}</span>
-                        </p>
-                    @enderror
-                </div>
 
-                <!-- Contact Number -->
-                <div class="space-y-2">
-                    <label for="contact_number" class="block text-sm font-semibold text-neutral-700">
-                        Contact Number <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                        </div>
+                    <!-- NIC -->
+                    <div class="space-y-2">
+                        <label for="nic" class="block text-sm font-semibold text-neutral-700">
+                            National ID Number <span class="text-red-500">*</span>
+                        </label>
                         <input 
-                            type="tel" 
-                            id="contact_number" 
-                            name="contact_number"
-                            value="{{ old('contact_number') }}"
-                            placeholder="0771234567"
-                            class="w-full pl-12 pr-4 py-3.5 bg-neutral-50 border-2 @error('contact_number') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
+                            type="text" 
+                            id="nic" 
+                            name="nic"
+                            value="{{ old('nic') }}"
+                            placeholder="Enter valid NIC (e.g., 95xxxxxxxV or 200xxxxxxxx)"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('nic') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
+                        @error('nic')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('contact_number')
-                        <p class="text-sm text-red-600 flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ $message }}</span>
-                        </p>
-                    @enderror
                 </div>
 
-                <!-- Email -->
-                <div class="space-y-2">
-                    <label for="email" class="block text-sm font-semibold text-neutral-700">
-                        Email Address <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
+                <!-- Contact Information Section -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-neutral-900 border-b-2 border-neutral-200 pb-2">Contact Information</h3>
+                    
+                    <!-- Email -->
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-semibold text-neutral-700">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
                         <input 
                             type="email" 
                             id="email" 
                             name="email"
                             value="{{ old('email') }}"
-                            placeholder="your.email@example.com"
-                            class="w-full pl-12 pr-4 py-3.5 bg-neutral-50 border-2 @error('email') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
+                            placeholder="you@example.com"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('email') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                        >
+                        @error('email')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Permanent Address -->
+                    <div class="space-y-2">
+                        <label for="permanent_address" class="block text-sm font-semibold text-neutral-700">
+                            Permanent Address <span class="text-red-500">*</span>
+                        </label>
+                        <textarea 
+                            id="permanent_address" 
+                            name="permanent_address"
+                            rows="3"
+                            placeholder="Enter your full permanent address"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('permanent_address') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all resize-none"
+                        >{{ old('permanent_address') }}</textarea>
+                        @error('permanent_address')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Postal Code -->
+                    <div class="space-y-2">
+                        <label for="postal_code" class="block text-sm font-semibold text-neutral-700">
+                            Postal Code <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="postal_code" 
+                            name="postal_code"
+                            value="{{ old('postal_code') }}"
+                            placeholder="e.g., 10200"
+                            maxlength="10"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('postal_code') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                        >
+                        @error('postal_code')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- District -->
+                    <div class="space-y-2">
+                        <label for="district" class="block text-sm font-semibold text-neutral-700">
+                            District <span class="text-red-500">*</span>
+                        </label>
+                        <select 
+                            id="district" 
+                            name="district"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('district') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                        >
+                            <option value="">Select District</option>
+                            @foreach($districts as $dist)
+                                <option value="{{ $dist }}" {{ old('district') == $dist ? 'selected' : '' }}>{{ $dist }}</option>
+                            @endforeach
+                        </select>
+                        @error('district')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Home Contact Number -->
+                    <div class="space-y-2">
+                        <label for="home_contact_number" class="block text-sm font-semibold text-neutral-700">
+                            Home Contact Number <span class="text-neutral-400 text-xs">(Optional)</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="home_contact_number" 
+                            name="home_contact_number"
+                            value="{{ old('home_contact_number') }}"
+                            placeholder="e.g., 0112XXXXXX"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
                     </div>
-                    @error('email')
-                        <p class="text-sm text-red-600 flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ $message }}</span>
-                        </p>
+
+                    <!-- WhatsApp Number -->
+                    <div class="space-y-2">
+                        <label for="whatsapp_number" class="block text-sm font-semibold text-neutral-700">
+                            WhatsApp Number <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="whatsapp_number" 
+                            name="whatsapp_number"
+                            value="{{ old('whatsapp_number') }}"
+                            placeholder="e.g., 07XXXXXXXX (Active number)"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('whatsapp_number') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                        >
+                        @error('whatsapp_number')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="space-y-4 bg-neutral-50 rounded-xl p-6 border-2 border-neutral-200">
+                    <label class="flex items-start space-x-3 cursor-pointer">
+                        <input 
+                            type="checkbox" 
+                            name="terms_accepted" 
+                            value="1"
+                            {{ old('terms_accepted') ? 'checked' : '' }}
+                            class="mt-1 w-5 h-5 text-primary-600 border-neutral-300 rounded focus:ring-primary-500"
+                        >
+                        <span class="text-sm text-neutral-700 leading-relaxed">
+                            I confirm that the information provided is accurate and I agree to the terms and conditions provided by SITC Campus via their support channels. <span class="text-red-500">*</span>
+                        </span>
+                    </label>
+                    @error('terms_accepted')
+                        <p class="text-sm text-red-600 ml-8">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -282,7 +382,7 @@
                     <h3 class="font-semibold text-blue-900 mb-1">Need Help?</h3>
                     <p class="text-sm text-blue-800 leading-relaxed">
                         If you have any questions or need assistance with the registration process, 
-                        please contact our support team at <a href="mailto:support@studentportal.com" class="font-semibold underline">support@studentportal.com</a>
+                        please contact our support team.
                     </p>
                 </div>
             </div>

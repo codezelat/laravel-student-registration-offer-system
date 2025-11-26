@@ -22,7 +22,8 @@ class RegistrationController extends Controller
      */
     public function selectDiploma()
     {
-        return view('registration.select-diploma');
+        $diplomas = config('diplomas');
+        return view('registration.select-diploma', compact('diplomas'));
     }
 
     /**
@@ -31,18 +32,22 @@ class RegistrationController extends Controller
     public function showRegistrationForm(Request $request)
     {
         $diploma = $request->query('diploma');
+        $diplomas = config('diplomas');
+        $diplomaNames = array_column($diplomas, 'name');
         
-        if (!$diploma || !in_array($diploma, ['English', 'IT', 'HR'])) {
+        if (!$diploma || !in_array($diploma, $diplomaNames)) {
             return redirect()->route('select.diploma')
                 ->with('error', 'Please select a valid diploma option.');
         }
 
         // Generate unique registration ID
         $registrationId = $this->generateRegistrationId();
+        $districts = config('districts');
 
         return view('registration.register', [
             'diploma' => $diploma,
-            'registrationId' => $registrationId
+            'registrationId' => $registrationId,
+            'districts' => $districts
         ]);
     }
 

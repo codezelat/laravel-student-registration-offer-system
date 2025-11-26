@@ -10,9 +10,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AdminController extends Controller
 {
-    private const ADMIN_USERNAME = 'new-dip@sitc.com';
-    private const ADMIN_PASSWORD = 'SITC#3tr56';
-
     public function showLogin()
     {
         if (Session::get('admin_logged_in')) {
@@ -28,7 +25,7 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        if ($request->username === self::ADMIN_USERNAME && $request->password === self::ADMIN_PASSWORD) {
+        if ($request->username === config('app.admin_username') && $request->password === config('app.admin_password')) {
             Session::put('admin_logged_in', true);
             return redirect()->route('admin.dashboard');
         }

@@ -30,12 +30,12 @@ Route::get('/payment/success', function () {
 })->name('payment.success');
 
 // Admin Routes
-Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.authenticate');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
-Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-Route::get('/admin/student/{id}', [AdminController::class, 'view'])->name('admin.student.view');
-Route::get('/admin/student/{id}/edit', [AdminController::class, 'edit'])->name('admin.student.edit');
-Route::put('/admin/student/{id}', [AdminController::class, 'update'])->name('admin.student.update');
-Route::delete('/admin/student/{id}', [AdminController::class, 'destroy'])->name('admin.student.destroy');
+Route::get('/superadminloginsitc', [AdminController::class, 'showLogin'])->name('admin.login');
+Route::post('/superadminloginsitc', [AdminController::class, 'login'])->name('admin.authenticate');
+Route::get('/sitc-admin-area/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/sitc-admin-area/export', [AdminController::class, 'export'])->name('admin.export');
+Route::post('/sitc-admin-area/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/sitc-admin-area/student/{id}', [AdminController::class, 'view'])->name('admin.student.view');
+Route::get('/sitc-admin-area/student/{id}/edit', [AdminController::class, 'edit'])->name('admin.student.edit');
+Route::put('/sitc-admin-area/student/{id}', [AdminController::class, 'update'])->name('admin.student.update');
+Route::delete('/sitc-admin-area/student/{id}', [AdminController::class, 'destroy'])->name('admin.student.destroy');

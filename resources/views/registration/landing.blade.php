@@ -10,7 +10,6 @@
         
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 mb-6 text-balance leading-tight">
             දැන්ම ලියාපදිංචි වන්න
-            <span class="bg-gradient-primary bg-clip-text text-transparent">Journey Today</span>
         </h1>
     </div>
 
@@ -56,17 +55,18 @@
                 </button>
 
                 <!-- No Button -->
-                <button 
-                    @click="showResponse = true; isNovember = false"
-                    class="group relative px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-semibold text-lg hover:border-primary-500 hover:bg-primary-50 transition-smooth hover:scale-105 active:scale-95"
-                >
-                    <span class="flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                        <span>No</span>
-                    </span>
-                </button>
+                <a href="{{ route('select.diploma') }}">
+                    <button 
+                        class="group relative px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-semibold text-lg hover:border-primary-500 hover:bg-primary-50 transition-smooth hover:scale-105 active:scale-95 w-full"
+                    >
+                        <span class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            <span>No</span>
+                        </span>
+                    </button>
+                </a>
             </div>
         </div>
 
@@ -92,13 +92,13 @@
                     </h3>
                     
                     <p class="text-lg text-neutral-700 mb-6 leading-relaxed">
-                        We appreciate your enthusiasm. Registration for the November batch has concluded.
+                        We appreciate your enthusiasm. However, as you have just started a new diploma program, you are not eligible for this discount this time. 
                     </p>
                     
                     <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-6 mb-6">
                         <p class="text-neutral-800 font-medium mb-2">What's Next?</p>
                         <p class="text-sm text-neutral-600">
-                            Stay tuned for our next intake opening. Subscribe to our newsletter to be the first to know!
+                            Stay tuned for our next intake opening. 
                         </p>
                     </div>
                 </div>
@@ -120,28 +120,6 @@
                     <p class="text-lg text-neutral-700 mb-8 leading-relaxed">
                         You're eligible to register. Click below to begin your educational journey with us!
                     </p>
-                    
-                    <!-- Features Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                        <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4">
-                            <svg class="w-8 h-8 text-primary-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            <p class="text-sm font-medium text-neutral-800">Quick Process</p>
-                        </div>
-                        <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4">
-                            <svg class="w-8 h-8 text-primary-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                            <p class="text-sm font-medium text-neutral-800">Secure Payment</p>
-                        </div>
-                        <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4">
-                            <svg class="w-8 h-8 text-primary-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                            <p class="text-sm font-medium text-neutral-800">Quality Education</p>
-                        </div>
-                    </div>
                     
                     <a href="{{ route('select.diploma') }}">
                         <button class="group relative px-10 py-4 bg-gradient-primary text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-smooth hover:scale-105 active:scale-95 overflow-hidden">
