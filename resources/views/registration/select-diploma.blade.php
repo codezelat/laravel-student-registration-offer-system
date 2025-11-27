@@ -60,7 +60,7 @@
                 </div>
                 
                 <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-                    Choose Your Program
+                    Choose Your Preferred Diploma
                 </h2>
                 <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
                     Select the diploma that aligns with your career goals and aspirations
