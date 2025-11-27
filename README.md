@@ -817,11 +817,9 @@ This project is proprietary software developed for SITC (Sri Lanka Institute of 
 
 For technical support or inquiries:
 
--   **Email**: support@sitc.edu.lk
--   **Phone**: +94 XX XXX XXXX
--   **Admin Panel**: `/sitc-admin-area/login`
+-   **Email**: info@sitc.lk
 
 ---
 
-**Last Updated**: January 2025  
+**Last Updated**: 27 November 2025  
 **Version**: 1.0.0
