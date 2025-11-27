@@ -1,4 +1,4 @@
-# SITC Student Registration System
+# SITC Student Registration System - Special Offer Edition
 
 A comprehensive web-based student registration and payment management system built with Laravel 12. This application facilitates online diploma program registrations with integrated payment processing through bank transfers and PayHere gateway, along with a full-featured admin panel for student data management.
 
@@ -800,13 +800,13 @@ npm run build
 
 ## 📄 License
 
-This project is proprietary software developed for SITC (Sri Lanka Institute of Technology and Commerce). All rights reserved.
+This project is proprietary software developed for SITC Campus. All rights reserved.
 
 ---
 
 ## 👥 Credits
 
-**Developed by**: [Your Name/Team]  
+**Developed by**: Codezela Technologies
 **Framework**: Laravel 12.38.1  
 **Payment Gateway**: PayHere (Sri Lanka)  
 **UI Design**: TailwindCSS with glass-morphism effects
