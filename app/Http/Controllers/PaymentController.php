@@ -74,10 +74,11 @@ class PaymentController extends Controller
 
             // Send SMS notification
             $smsService = new SmsService();
-            $smsService->sendRegistrationSuccessSms(
+            $smsService->sendPaymentConfirmation(
                 $student->whatsapp_number,
                 $student->full_name,
-                $student->student_id
+                $student->registration_id,
+                $student->selected_diploma
             );
 
             // Clear session data
@@ -147,10 +148,11 @@ class PaymentController extends Controller
 
         // Send SMS notification
         $smsService = new SmsService();
-        $smsService->sendRegistrationSuccessSms(
+        $smsService->sendPaymentConfirmation(
             $student->whatsapp_number,
             $student->full_name,
-            $student->student_id
+            $student->registration_id,
+            $student->selected_diploma
         );
 
         // Clear session data
@@ -215,10 +217,11 @@ class PaymentController extends Controller
 
                     // Send SMS notification
                     $smsService = new SmsService();
-                    $smsService->sendRegistrationSuccessSms(
+                    $smsService->sendPaymentConfirmation(
                         $student->whatsapp_number,
                         $student->full_name,
-                        $student->student_id
+                        $student->registration_id,
+                        $student->selected_diploma
                     );
                 }
             }

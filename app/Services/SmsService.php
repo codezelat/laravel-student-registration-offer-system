@@ -73,16 +73,17 @@ class SmsService
     }
 
     /**
-     * Send registration success SMS
+     * Send payment confirmation SMS
      *
      * @param string $phoneNumber The student's phone number
      * @param string $studentName The student's name
-     * @param string $studentId The generated student ID
+     * @param string $registrationId The registration ID
+     * @param string $diplomaName The selected diploma program name
      * @return bool Success status
      */
-    public function sendRegistrationSuccessSms(string $phoneNumber, string $studentName, string $studentId): bool
+    public function sendPaymentConfirmation(string $phoneNumber, string $studentName, string $registrationId, string $diplomaName): bool
     {
-        $message = "Congratulations {$studentName}! You are successfully registered to SITC Campus. Your Student ID: {$studentId}. Welcome to our new batch!";
+        $message = "Congratulations {$studentName}! Payment SUCCESSFUL for {$diplomaName}. Your Registration ID: {$registrationId}. Welcome to SITC!";
         
         return $this->sendSms($phoneNumber, $message);
     }
