@@ -32,7 +32,7 @@
 
             <!-- Question -->
             <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-3">
-                නොවැම්බර් 26 ආරම්භ කළ Diploma Batch එකේ දැනටමත් ලියාපදිංචි වී සිටීද?
+                නොවැම්බර් 26 ආරම්භ කළ Diploma Batch එකට දැනටමත් ලියාපදිංචි වී සිටීද?
             </h2>
             <p class="text-neutral-600 text-center mb-8">
                 Please select your answer to continue with the registration process

@@ -126,7 +126,7 @@
                 </div>
                 <div class="bg-green-50 rounded-xl p-4 border border-green-200">
                     <p class="text-sm text-green-700 mb-1">Total Amount</p>
-                    <p class="font-bold text-green-600 text-2xl">LKR 5,000.00</p>
+                    <p class="font-bold text-green-600 text-2xl">LKR 4,000.00</p>
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
-                    Pay LKR 5,000.00 with PayHere
+                    Pay LKR 4,000.00 with PayHere
                 </button>
 
                 <div class="flex items-center justify-center space-x-2 text-sm text-gray-600">
@@ -269,7 +269,7 @@
             "notify_url": "{{ route('payment.notify') }}",
             "order_id": "{{ $orderId }}",
             "items": "Student Registration - {{ $studentData['selected_diploma'] }}",
-            "amount": "5000.00",
+            "amount": "4000.00",
             "currency": "LKR",
             "hash": "{{ $hash }}", // Generated hash from backend
             "first_name": "{{ explode(' ', $studentData['full_name'])[0] }}",

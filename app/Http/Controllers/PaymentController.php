@@ -68,7 +68,7 @@ class PaymentController extends Controller
                 'payment_method' => 'slip',
                 'payment_slip' => $path,
                 'payment_status' => 'pending',
-                'amount_paid' => 5000.00,
+                'amount_paid' => 4000.00,
                 'payment_date' => now(),
             ]));
 
@@ -110,7 +110,7 @@ class PaymentController extends Controller
         // PayHere payment details
         $merchantId = config('services.payhere.merchant_id');
         $merchantSecret = config('services.payhere.merchant_secret');
-        $amount = '5000.00';
+        $amount = '4000.00';
         $currency = 'LKR';
         
         // Generate hash for payment security
@@ -142,7 +142,7 @@ class PaymentController extends Controller
             'payment_method' => 'online',
             'payment_status' => 'completed',
             'payhere_order_id' => $orderId,
-            'amount_paid' => 5000.00,
+            'amount_paid' => 4000.00,
             'payment_date' => now(),
         ]));
 
