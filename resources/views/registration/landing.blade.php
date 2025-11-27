@@ -54,7 +54,7 @@
                 </button>
 
                 <!-- No Button -->
-                <a href="{{ route('select.diploma') }}">
+                <a href="{{ route('register.form', ['diploma' => $diploma]) }}">
                     <button 
                         class="group relative px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-semibold text-lg hover:border-primary-500 hover:bg-primary-50 transition-smooth hover:scale-105 active:scale-95 w-full"
                     >
@@ -120,7 +120,7 @@
                         You're eligible to register. Click below to begin your educational journey with us!
                     </p>
                     
-                    <a href="{{ route('select.diploma') }}">
+                    <a href="{{ route('register.form', ['diploma' => $diploma]) }}">
                         <button class="group relative px-10 py-4 bg-gradient-primary text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-smooth hover:scale-105 active:scale-95 overflow-hidden">
                             <span class="relative z-10 flex items-center justify-center space-x-2">
                                 <span>Register Now</span>

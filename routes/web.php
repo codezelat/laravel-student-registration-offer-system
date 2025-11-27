@@ -5,11 +5,11 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdminController;
 
-// Landing Page - Question Page
-Route::get('/', [RegistrationController::class, 'landing'])->name('landing');
+// Landing Page - Diploma Selection (New Home)
+Route::get('/', [RegistrationController::class, 'selectDiploma'])->name('select.diploma');
 
-// Diploma Selection Page
-Route::get('/select-diploma', [RegistrationController::class, 'selectDiploma'])->name('select.diploma');
+// Eligibility Check Page (Formerly Landing)
+Route::get('/check-eligibility', [RegistrationController::class, 'landing'])->name('landing');
 
 // Registration Form Page
 Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register.form');

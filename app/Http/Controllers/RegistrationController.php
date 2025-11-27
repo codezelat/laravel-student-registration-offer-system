@@ -12,9 +12,10 @@ class RegistrationController extends Controller
     /**
      * Show the landing page with the question
      */
-    public function landing()
+    public function landing(Request $request)
     {
-        return view('registration.landing');
+        $diploma = $request->query('diploma');
+        return view('registration.landing', compact('diploma'));
     }
 
     /**

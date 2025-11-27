@@ -112,7 +112,7 @@
                 >
                     <button 
                         type="button"
-                        @click="window.location.href = '{{ route('register.form') }}?diploma=' + selected"
+                        @click="window.location.href = '{{ route('landing') }}?diploma=' + selected"
                         class="group w-full px-8 py-5 bg-gradient-primary text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-smooth hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden"
                     >
                         <span class="relative z-10 flex items-center justify-center space-x-3">
