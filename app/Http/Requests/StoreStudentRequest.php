@@ -33,7 +33,14 @@ class StoreStudentRequest extends FormRequest
                 'string', 
                 'regex:/^([0-9]{9}[vVxX]|[0-9]{12})$/',
                 function ($attribute, $value, $fail) use ($selectedDiploma) {
-                    $exists = \App\Models\Student::where('nic', $value)
+                    // Custom validation for Sri Lankan NIC
+                    if (!$this->validateSriLankanNIC($value)) {
+                        $fail('Please enter a valid Sri Lankan NIC number.');
+                        return;
+                    }
+                    
+                    // Check for duplicate NIC for the same diploma
+                    $exists = \App\Models\Student::where('nic', strtoupper($value))
                         ->where('selected_diploma', $selectedDiploma)
                         ->exists();
                     if ($exists) {
@@ -131,5 +138,90 @@ class StoreStudentRequest extends FormRequest
             'terms_accepted' => 'terms and conditions',
             'selected_diploma' => 'diploma selection',
         ];
+    }
+
+    /**
+     * Validate Sri Lankan NIC number
+     */
+    private function validateSriLankanNIC(string $nic): bool
+    {
+        // Remove spaces and convert to uppercase
+        $nic = strtoupper(trim($nic));
+        
+        // Check format
+        if (!preg_match('/^([0-9]{9}[VX]|[0-9]{12})$/', $nic)) {
+            return false;
+        }
+        
+        if (strlen($nic) === 10) {
+            // Old format validation
+            return $this->validateOldFormatNIC($nic);
+        } else {
+            // New format validation
+            return $this->validateNewFormatNIC($nic);
+        }
+    }
+    
+    /**
+     * Validate old format NIC (9 digits + V/X)
+     */
+    private function validateOldFormatNIC(string $nic): bool
+    {
+        $digits = substr($nic, 0, 9);
+        
+        // Extract birth year (first 2 digits + 1900)
+        $yearPrefix = (int)substr($digits, 0, 2);
+        $birthYear = 1900 + $yearPrefix;
+        
+        // Extract day of year (next 3 digits)
+        $dayOfYear = (int)substr($digits, 2, 3);
+        
+        // If day > 500, it's female and we subtract 500
+        if ($dayOfYear > 500) {
+            $dayOfYear -= 500;
+        }
+        
+        // Validate day of year (1-366)
+        if ($dayOfYear < 1 || $dayOfYear > 366) {
+            return false;
+        }
+        
+        // Validate birth year
+        $currentYear = date('Y');
+        if ($birthYear < 1900 || $birthYear > $currentYear - 10) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Validate new format NIC (12 digits)
+     */
+    private function validateNewFormatNIC(string $nic): bool
+    {
+        // Extract birth year (first 4 digits)
+        $birthYear = (int)substr($nic, 0, 4);
+        
+        // Extract day of year (next 3 digits)
+        $dayOfYear = (int)substr($nic, 4, 3);
+        
+        // If day > 500, it's female and we subtract 500
+        if ($dayOfYear > 500) {
+            $dayOfYear -= 500;
+        }
+        
+        // Validate day of year (1-366)
+        if ($dayOfYear < 1 || $dayOfYear > 366) {
+            return false;
+        }
+        
+        // Validate birth year
+        $currentYear = date('Y');
+        if ($birthYear < 1900 || $birthYear > $currentYear - 10) {
+            return false;
+        }
+        
+        return true;
     }
 }

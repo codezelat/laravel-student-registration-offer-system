@@ -157,7 +157,7 @@
                             id="full_name" 
                             name="full_name"
                             value="{{ old('full_name') }}"
-                            placeholder="As per NIC/Passport"
+                            placeholder="Enter Full Name as per NIC/Passport"
                             class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('full_name') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
                         @error('full_name')
@@ -175,7 +175,7 @@
                             id="name_with_initials" 
                             name="name_with_initials"
                             value="{{ old('name_with_initials') }}"
-                            placeholder="e.g., A. B. C. Perera"
+                            placeholder="Enter Name with Initials"
                             class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('name_with_initials') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
                         @error('name_with_initials')
@@ -225,17 +225,42 @@
                         <label for="nic" class="block text-sm font-semibold text-neutral-700">
                             National ID Number <span class="text-red-500">*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="nic" 
-                            name="nic"
-                            value="{{ old('nic') }}"
-                            placeholder="Enter valid NIC (e.g., 95xxxxxxxV or 200xxxxxxxx)"
-                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('nic') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
-                        >
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="nic" 
+                                name="nic"
+                                value="{{ old('nic') }}"
+                                placeholder="Enter valid NIC (e.g., 95xxxxxxxV or 200xxxxxxxx)"
+                                maxlength="12"
+                                class="w-full px-4 py-3.5 pr-12 bg-neutral-50 border-2 @error('nic') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                                oninput="validateNIC(this)"
+                                onblur="validateNIC(this)"
+                            >
+                            <!-- Validation Icons -->
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                                <!-- Valid Icon (Hidden by default) -->
+                                <svg id="nic-valid-icon" class="w-6 h-6 text-green-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <!-- Invalid Icon (Hidden by default) -->
+                                <svg id="nic-invalid-icon" class="w-6 h-6 text-red-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- Validation Messages -->
+                        <div id="nic-validation-message" class="text-sm hidden">
+                            <!-- Dynamic validation messages will appear here -->
+                        </div>
                         @error('nic')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
+                        <!-- Help Text -->
+                        <div class="text-xs text-neutral-500 space-y-1">
+                            <p><strong>Old Format:</strong> 9 digits + V/X (e.g., 123456789V)</p>
+                            <p><strong>New Format:</strong> 12 digits (e.g., 200012345678)</p>
+                        </div>
                     </div>
                 </div>
 
@@ -451,5 +476,184 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
         });
+
+        // NIC Validation Function
+        function validateNIC(input) {
+            const nicValue = input.value.toUpperCase().trim();
+            const nicField = document.getElementById('nic');
+            const validIcon = document.getElementById('nic-valid-icon');
+            const invalidIcon = document.getElementById('nic-invalid-icon');
+            const messageDiv = document.getElementById('nic-validation-message');
+            
+            // Reset states
+            validIcon.classList.add('hidden');
+            invalidIcon.classList.add('hidden');
+            messageDiv.classList.add('hidden');
+            nicField.classList.remove('border-green-500', 'border-red-500', 'bg-green-50', 'bg-red-50');
+            
+            // If empty, reset to neutral state
+            if (!nicValue) {
+                nicField.classList.add('border-neutral-200');
+                return;
+            }
+            
+            let isValid = false;
+            let message = '';
+            let extractedInfo = null;
+            
+            // Validate NIC format and extract information
+            const validation = validateSriLankanNIC(nicValue);
+            isValid = validation.isValid;
+            message = validation.message;
+            extractedInfo = validation.info;
+            
+            // Update UI based on validation
+            if (isValid) {
+                // Valid NIC
+                nicField.classList.remove('border-neutral-200', 'border-red-500', 'bg-red-50');
+                nicField.classList.add('border-green-500', 'bg-green-50');
+                validIcon.classList.remove('hidden');
+                
+                // Show extracted information
+                if (extractedInfo) {
+                    messageDiv.innerHTML = `
+                        <div class="text-green-600">
+                            <p class="font-medium">✓ Valid Sri Lankan NIC</p>
+                        </div>
+                    `;
+                    messageDiv.classList.remove('hidden');
+                }
+            } else {
+                // Invalid NIC
+                nicField.classList.remove('border-neutral-200', 'border-green-500', 'bg-green-50');
+                nicField.classList.add('border-red-500', 'bg-red-50');
+                invalidIcon.classList.remove('hidden');
+                
+                messageDiv.innerHTML = `<p class="text-red-600">${message}</p>`;
+                messageDiv.classList.remove('hidden');
+            }
+            
+            // Update input value to uppercase
+            input.value = nicValue;
+        }
+        
+        // Sri Lankan NIC Validation Logic
+        function validateSriLankanNIC(nic) {
+            // Remove any spaces and convert to uppercase
+            nic = nic.replace(/\s/g, '').toUpperCase();
+            
+            // Check for old format (9 digits + V/X)
+            const oldFormatRegex = /^[0-9]{9}[VX]$/;
+            // Check for new format (12 digits)
+            const newFormatRegex = /^[0-9]{12}$/;
+            
+            if (oldFormatRegex.test(nic)) {
+                return validateOldFormatNIC(nic);
+            } else if (newFormatRegex.test(nic)) {
+                return validateNewFormatNIC(nic);
+            } else {
+                return {
+                    isValid: false,
+                    message: 'Invalid NIC format. Use either 9 digits + V/X or 12 digits.',
+                    info: null
+                };
+            }
+        }
+        
+        // Validate Old Format NIC (9 digits + V/X)
+        function validateOldFormatNIC(nic) {
+            const digits = nic.substring(0, 9);
+            const suffix = nic.charAt(9);
+            
+            // Extract birth year (first 2 digits + 1900)
+            const yearPrefix = parseInt(digits.substring(0, 2));
+            const birthYear = 1900 + yearPrefix;
+            
+            // Extract day of year (next 3 digits)
+            let dayOfYear = parseInt(digits.substring(2, 5));
+            let gender = 'Male';
+            
+            // If day > 500, it's female and we subtract 500
+            if (dayOfYear > 500) {
+                gender = 'Female';
+                dayOfYear -= 500;
+            }
+            
+            // Validate day of year (1-366)
+            if (dayOfYear < 1 || dayOfYear > 366) {
+                return {
+                    isValid: false,
+                    message: 'Invalid day of year in NIC.',
+                    info: null
+                };
+            }
+            
+            // Additional validation: Check if year makes sense
+            const currentYear = new Date().getFullYear();
+            if (birthYear < 1900 || birthYear > currentYear - 10) {
+                return {
+                    isValid: false,
+                    message: 'Invalid birth year in NIC.',
+                    info: null
+                };
+            }
+            
+            return {
+                isValid: true,
+                message: 'Valid old format NIC',
+                info: {
+                    birthYear: birthYear,
+                    dayOfYear: dayOfYear,
+                    gender: gender,
+                    format: 'Old Format'
+                }
+            };
+        }
+        
+        // Validate New Format NIC (12 digits)
+        function validateNewFormatNIC(nic) {
+            // Extract birth year (first 4 digits)
+            const birthYear = parseInt(nic.substring(0, 4));
+            
+            // Extract day of year (next 3 digits)
+            let dayOfYear = parseInt(nic.substring(4, 7));
+            let gender = 'Male';
+            
+            // If day > 500, it's female and we subtract 500
+            if (dayOfYear > 500) {
+                gender = 'Female';
+                dayOfYear -= 500;
+            }
+            
+            // Validate day of year (1-366)
+            if (dayOfYear < 1 || dayOfYear > 366) {
+                return {
+                    isValid: false,
+                    message: 'Invalid day of year in NIC.',
+                    info: null
+                };
+            }
+            
+            // Validate birth year
+            const currentYear = new Date().getFullYear();
+            if (birthYear < 1900 || birthYear > currentYear - 10) {
+                return {
+                    isValid: false,
+                    message: 'Invalid birth year in NIC.',
+                    info: null
+                };
+            }
+            
+            return {
+                isValid: true,
+                message: 'Valid new format NIC',
+                info: {
+                    birthYear: birthYear,
+                    dayOfYear: dayOfYear,
+                    gender: gender,
+                    format: 'New Format'
+                }
+            };
+        }
     </script>
 </x-layout>

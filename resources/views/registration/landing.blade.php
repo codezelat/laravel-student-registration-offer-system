@@ -32,7 +32,7 @@
 
             <!-- Question -->
             <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-3">
-                Are you a November batch student?
+                නොවැම්බර් 26 ආරම්භ කළ Diploma Batch එකේ දැනටමත් ලියාපදිංචි වී සිටීද?
             </h2>
             <p class="text-neutral-600 text-center mb-8">
                 Please select your answer to continue with the registration process
@@ -43,15 +43,14 @@
                 <!-- Yes Button -->
                 <button 
                     @click="showResponse = true; isNovember = true"
-                    class="group relative px-8 py-4 bg-gradient-primary text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-smooth hover:scale-105 active:scale-95 overflow-hidden"
+                    class="group relative px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-semibold text-lg hover:border-primary-500 hover:bg-primary-50 transition-smooth hover:scale-105 active:scale-95 w-full"
                 >
-                    <span class="relative z-10 flex items-center justify-center space-x-2">
+                    <span class="flex items-center justify-center space-x-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                         <span>Yes</span>
                     </span>
-                    <div class="absolute inset-0 bg-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 </button>
 
                 <!-- No Button -->
