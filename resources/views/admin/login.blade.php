@@ -30,6 +30,16 @@
             <form action="{{ route('admin.authenticate') }}" method="POST" class="space-y-5">
                 @csrf
                 
+                @if($errors->any())
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <ul class="text-red-700 text-sm">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
                 <div>
                     <input 
                         type="email" 
@@ -37,8 +47,11 @@
                         value="{{ old('username') }}"
                         placeholder="Email"
                         required
-                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        class="w-full px-4 py-3 border @error('username') border-red-500 @else border-neutral-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                     >
+                    @error('username')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -47,8 +60,11 @@
                         name="password"
                         placeholder="Password"
                         required
-                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        class="w-full px-4 py-3 border @error('password') border-red-500 @else border-neutral-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                     >
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button 

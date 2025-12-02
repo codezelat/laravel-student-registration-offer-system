@@ -128,7 +128,7 @@
                 <table class="w-full">
                     <thead class="bg-gradient-primary text-white">
                         <tr>
-                            <th class="px-6 py-4 text-left text-sm font-semibold">Student ID</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold">Registration ID</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Full Name</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Selected Diploma</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">NIC</th>
@@ -368,7 +368,7 @@
                                 <p class="font-semibold text-neutral-900">${data.whatsapp_number || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
-                                <p class="text-sm text-neutral-500">Home Contact</p>
+                                <p class="text-sm text-neutral-500">Emergency Contact</p>
                                 <p class="font-semibold text-neutral-900">${data.home_contact_number || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">

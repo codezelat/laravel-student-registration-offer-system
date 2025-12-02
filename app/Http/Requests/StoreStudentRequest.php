@@ -65,11 +65,11 @@ class StoreStudentRequest extends FormRequest
             'permanent_address' => ['required', 'string', 'max:500'],
             'postal_code' => ['required', 'string', 'regex:/^[0-9]{5}$/'],
             'district' => ['required', 'string'],
-            'home_contact_number' => ['nullable', 'string', 'regex:/^0[0-9]{9}$/'],
+            'home_contact_number' => ['required', 'string', 'regex:/^0[0-9]{9}$/'],
             'whatsapp_number' => [
-                'required', 
-                'string', 
-                'regex:/^0[0-9]{9}$/',
+                'required',
+                'string',
+                'regex:/^07[0-9]{8}$/',
                 function ($attribute, $value, $fail) use ($selectedDiploma) {
                     $exists = \App\Models\Student::where('whatsapp_number', $value)
                         ->where('selected_diploma', $selectedDiploma)
@@ -109,6 +109,7 @@ class StoreStudentRequest extends FormRequest
             'postal_code.required' => 'Please enter your postal code.',
             'postal_code.regex' => 'Please enter a valid 5-digit postal code.',
             'district.required' => 'Please select your district.',
+            'home_contact_number.required' => 'Please enter your emergency contact number.',
             'home_contact_number.regex' => 'Please enter a valid Sri Lankan mobile number (e.g., 0771234567).',
             'whatsapp_number.required' => 'Please enter your WhatsApp number.',
             'whatsapp_number.regex' => 'Please enter a valid Sri Lankan mobile number (e.g., 0771234567).',
@@ -133,7 +134,7 @@ class StoreStudentRequest extends FormRequest
             'date_of_birth' => 'date of birth',
             'permanent_address' => 'permanent address',
             'postal_code' => 'postal code',
-            'home_contact_number' => 'home contact number',
+            'home_contact_number' => 'emergency contact number',
             'whatsapp_number' => 'WhatsApp number',
             'terms_accepted' => 'terms and conditions',
             'selected_diploma' => 'diploma selection',

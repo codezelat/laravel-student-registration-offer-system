@@ -152,23 +152,22 @@
                         <!-- WhatsApp Number -->
                         <div>
                             <label for="whatsapp_number" class="block text-sm font-semibold text-neutral-700 mb-2">
-                                WhatsApp Number *
+                                WhatsApp Number
                             </label>
                             <input type="text" 
                                    id="whatsapp_number" 
                                    name="whatsapp_number" 
                                    value="{{ old('whatsapp_number', $student->whatsapp_number) }}"
-                                   required
                                    class="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg focus:border-primary-500 focus:outline-none transition-colors @error('whatsapp_number') border-red-500 @enderror">
                             @error('whatsapp_number')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <!-- Home Contact Number -->
+                        <!-- Emergency Contact Number (Home Number) -->
                         <div>
                             <label for="home_contact_number" class="block text-sm font-semibold text-neutral-700 mb-2">
-                                Home Contact Number
+                                Emergency Contact Number (Home Number) *
                             </label>
                             <input type="text" 
                                    id="home_contact_number" 

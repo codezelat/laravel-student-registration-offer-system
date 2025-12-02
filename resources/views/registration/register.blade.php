@@ -342,10 +342,10 @@
                         @enderror
                     </div>
 
-                    <!-- Home Contact Number -->
+                    <!-- Emergency Contact Number (Home Number) -->
                     <div class="space-y-2">
                         <label for="home_contact_number" class="block text-sm font-semibold text-neutral-700">
-                            Home Contact Number <span class="text-neutral-400 text-xs">(Optional)</span>
+                            Emergency Contact Number (Home Number) <span class="text-red-500">*</span>
                         </label>
                         <input 
                             type="tel" 
@@ -353,8 +353,11 @@
                             name="home_contact_number"
                             value="{{ old('home_contact_number') }}"
                             placeholder="e.g., 0112XXXXXX"
-                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
+                            class="w-full px-4 py-3.5 bg-neutral-50 border-2 @error('home_contact_number') border-red-300 @else border-neutral-200 @enderror rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all"
                         >
+                        @error('home_contact_number')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- WhatsApp Number -->

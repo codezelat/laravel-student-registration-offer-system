@@ -207,13 +207,19 @@ class AdminController extends Controller
             'gender' => 'nullable|string|in:male,female',
             'nic' => 'required|string|max:20',
             'date_of_birth' => 'required|date',
-            'whatsapp_number' => 'nullable|string|max:20',
-            'home_contact_number' => 'nullable|string|max:20',
+            'whatsapp_number' => 'nullable|string|regex:/^07[0-9]{8}$/',
+            'home_contact_number' => 'required|string|regex:/^0[0-9]{9}$/',
             'email' => 'required|email|max:255',
             'permanent_address' => 'nullable|string',
             'postal_code' => 'nullable|string|max:10',
             'district' => 'nullable|string',
             'selected_diploma' => 'required|string',
+        ], [
+            'whatsapp_number.regex' => 'Please enter a valid Sri Lankan mobile number starting with 07 (e.g., 0771234567).',
+            'home_contact_number.regex' => 'Please enter a valid Sri Lankan mobile number (e.g., 0771234567).',
+        ], [
+            'home_contact_number' => 'emergency contact number',
+            'whatsapp_number' => 'WhatsApp number',
         ]);
 
         $student->update($validated);
