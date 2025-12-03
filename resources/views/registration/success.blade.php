@@ -45,7 +45,7 @@
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Check your email for confirmation and further instructions</span>
+                            <span>Check your WhatsApp for confirmation and further instructions</span>
                         </li>
                         <li class="flex items-start space-x-2">
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -268,7 +268,7 @@
             "cancel_url": undefined, // Important
             "notify_url": "{{ route('payment.notify') }}",
             "order_id": "{{ $orderId }}",
-            "items": "Student Registration - {{ $studentData['selected_diploma'] }}",
+            "items": "SITC Campus - UGC - {{ $studentData['selected_diploma'] }}",
             "amount": "4000.00",
             "currency": "LKR",
             "hash": "{{ $hash }}", // Generated hash from backend

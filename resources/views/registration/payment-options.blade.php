@@ -282,31 +282,31 @@
                             </p>
                             
                             <div class="space-y-2 mb-4">
-                                <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span>Instant registration to the program</span>
                                 </div>
-                                <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span>Credit/Debit cards accepted</span>
                                 </div>
-                                <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span>Immediate access to course WhatsApp group upon payment</span>
                                 </div>
-                                <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span>Secure encrypted payment processing</span>
                                 </div>
-                                <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
@@ -342,19 +342,19 @@
                         </p>
                         
                         <div class="space-y-2 mb-4">
-                            <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                 <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                                 <span>2-3 business days verification</span>
                             </div>
-                            <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                 <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                                 <span>JPG, PNG, PDF, DOCX accepted</span>
                             </div>
-                            <div class="flex items-center space-x-2 text-sm text-neutral-600">
+                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                 <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>

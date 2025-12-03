@@ -170,8 +170,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     <div>
-                        <p class="text-xs text-neutral-500">Contact</p>
-                        <p class="font-semibold text-neutral-900">{{ $student->contact_number }}</p>
+                        <p class="text-xs text-neutral-500">WhatsApp</p>
+                        <p class="font-semibold text-neutral-900">{{ $student->whatsapp_number }}</p>
                     </div>
                 </div>
             </div>
@@ -192,8 +192,8 @@
                 <div class="flex items-start space-x-3">
                     <div class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">1</div>
                     <div>
-                        <p class="font-semibold text-neutral-900 mb-1">Check Your Email</p>
-                        <p class="text-sm text-neutral-700">Confirmation and welcome package sent to your email</p>
+                        <p class="font-semibold text-neutral-900 mb-1">Check Your Phone</p>
+                        <p class="text-sm text-neutral-700">Confirmation details will be sent via a text message</p>
                     </div>
                 </div>
 
@@ -201,7 +201,7 @@
                     <div class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">2</div>
                     <div>
                         <p class="font-semibold text-neutral-900 mb-1">Course Materials</p>
-                        <p class="text-sm text-neutral-700">You'll receive materials within 24 hours</p>
+                        <p class="text-sm text-neutral-700">You'll receive materials through the course WhatsApp group</p>
                     </div>
                 </div>
 
