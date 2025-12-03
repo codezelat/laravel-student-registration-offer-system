@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -177,8 +176,11 @@ class PaymentController extends Controller
         
         // Set paper size to A5
         $pdf->setPaper('a5', 'portrait');
+
+        $cleanId = str_replace(['/', '\\'], '-', $student->registration_id);
+        $fileName = 'payment-receipt-' . $cleanId . '.pdf';
         
-        return $pdf->download('payment-receipt-' . $student->registration_id . '.pdf');
+        return $pdf->download($fileName);
     }
 
     /**
@@ -187,7 +189,7 @@ class PaymentController extends Controller
     public function payhereNotify(Request $request)
     {
         // Log the notification for debugging
-        \Log::info('PayHere Notification:', $request->all());
+        Log::info('PayHere Notification:', $request->all());
 
         // Verify the payment with PayHere
         $merchant_id = $request->input('merchant_id');
