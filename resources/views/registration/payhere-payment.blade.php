@@ -262,7 +262,7 @@
 
         // Put the payment variables here
         var payment = {
-            "sandbox": true, // Change to false for production
+            "sandbox": {{ config('services.payhere.sandbox') ? 'true' : 'false' }},
             "merchant_id": "{{ config('services.payhere.merchant_id') }}",
             "return_url": undefined, // Important
             "cancel_url": undefined, // Important
