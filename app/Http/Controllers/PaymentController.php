@@ -78,7 +78,8 @@ class PaymentController extends Controller
                 $student->whatsapp_number,
                 $student->full_name,
                 $student->registration_id,
-                $student->selected_diploma
+                $student->selected_diploma,
+                'slip'
             );
 
             // Clear session data
@@ -152,13 +153,32 @@ class PaymentController extends Controller
             $student->whatsapp_number,
             $student->full_name,
             $student->registration_id,
-            $student->selected_diploma
+            $student->selected_diploma,
+            'online'
         );
 
         // Clear session data
         session()->forget(['registration_data', 'registration_id', 'payhere_order_id']);
 
         return view('registration.payment-success', compact('student'));
+    }
+
+    /**
+     * Download payment receipt PDF
+     */
+    public function downloadReceipt(Student $student)
+    {
+        // Only allow receipt download for online payments
+        if ($student->payment_method !== 'online') {
+            abort(404);
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('registration.receipt', compact('student'));
+        
+        // Set paper size to A5
+        $pdf->setPaper('a5', 'portrait');
+        
+        return $pdf->download('payment-receipt-' . $student->registration_id . '.pdf');
     }
 
     /**
@@ -221,7 +241,8 @@ class PaymentController extends Controller
                         $student->whatsapp_number,
                         $student->full_name,
                         $student->registration_id,
-                        $student->selected_diploma
+                        $student->selected_diploma,
+                        'online'
                     );
                 }
             }

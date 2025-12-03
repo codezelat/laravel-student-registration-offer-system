@@ -12,6 +12,14 @@ class SmsService
     private string $source;
     private string $apiUrl;
 
+    private array $whatsappLinks = [
+        'Diploma in Human Resource Management' => 'https://chat.whatsapp.com/F1k9BkpBLoIIw7a3AFZrAR',
+        'Diploma in English' => 'https://chat.whatsapp.com/BuazUa9cIXZ8DI8jt9LTnP',
+        'Diploma in Business Management' => 'https://chat.whatsapp.com/J0J0M7FWNKzDaqey7wQM8z',
+        'Diploma in Psychology and Counseling' => 'https://chat.whatsapp.com/DzjviUriODjAGavdKCrxE8',
+        'Diploma in Information Technology' => 'https://chat.whatsapp.com/Cbv9ytqUGLM1hc7zcRwcEW',
+    ];
+
     public function __construct()
     {
         $this->username = config('services.sms.username');
@@ -79,11 +87,24 @@ class SmsService
      * @param string $studentName The student's name
      * @param string $registrationId The registration ID
      * @param string $diplomaName The selected diploma program name
+     * @param string $paymentMethod The payment method ('online' or 'slip')
      * @return bool Success status
      */
-    public function sendPaymentConfirmation(string $phoneNumber, string $studentName, string $registrationId, string $diplomaName): bool
+    public function sendPaymentConfirmation(string $phoneNumber, string $studentName, string $registrationId, string $diplomaName, string $paymentMethod): bool
     {
-        $message = "Congratulations {$studentName}! Payment SUCCESSFUL for {$diplomaName}. Your Registration ID: {$registrationId}. Welcome to SITC!";
+        if ($paymentMethod === 'online') {
+            $message = "Congratulations {$studentName}! Payment SUCCESSFUL for {$diplomaName}. Your Registration ID: {$registrationId}. Welcome to SITC!";
+            
+            // Add WhatsApp group link if available
+            if (isset($this->whatsappLinks[$diplomaName])) {
+                $message .= " You can now join the WhatsApp group: {$this->whatsappLinks[$diplomaName]}";
+            }
+        } elseif ($paymentMethod === 'slip') {
+            $message = "Your form has been submitted for {$diplomaName}. Your Registration ID: {$registrationId}. Our support team will add you to the related WhatsApp group soon.";
+        } else {
+            // Fallback
+            $message = "Payment processed for {$diplomaName}. Your Registration ID: {$registrationId}.";
+        }
         
         return $this->sendSms($phoneNumber, $message);
     }

@@ -64,7 +64,7 @@
                 <!-- Student ID Display -->
                 <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
                     <p class="text-sm font-medium mb-2 opacity-90">Your Registration ID</p>
-                    <p class="text-4xl font-bold tracking-wide mb-2">
+                    <p class="text-4xl font-bold tracking-wide mb-2 break-all">
                         {{ $student->registration_id }}
                     </p>
                     <p class="text-xs opacity-90">
@@ -109,7 +109,7 @@
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Save your Registration ID: <strong>{{ $student->registration_id }}</strong></span>
+                            <span>Save your Registration ID: <strong class="break-all">{{ $student->registration_id }}</strong></span>
                         </li>
                         <li class="flex items-start space-x-2">
                             <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

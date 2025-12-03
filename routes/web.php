@@ -25,6 +25,7 @@ Route::post('/payment/store-slip', [PaymentController::class, 'storeSlip'])->nam
 Route::post('/payment/payhere', [PaymentController::class, 'payhere'])->name('payment.payhere');
 Route::get('/payment/payhere-success', [PaymentController::class, 'payhereSuccess'])->name('payment.payhere-success');
 Route::post('/payment/notify', [PaymentController::class, 'payhereNotify'])->name('payment.notify');
+Route::get('/payment/receipt/{student}', [PaymentController::class, 'downloadReceipt'])->name('payment.receipt');
 Route::get('/payment/success', function () {
     return redirect()->route('landing');
 })->name('payment.success');

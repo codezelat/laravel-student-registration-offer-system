@@ -77,7 +77,7 @@
                 </div>
                 
                 <p class="text-lg opacity-90 mb-2">Your Registration ID</p>
-                <p class="text-5xl md:text-6xl font-bold tracking-wider mb-4">
+                <p class="text-5xl md:text-6xl font-bold tracking-wider mb-4 break-all">
                     {{ $student->registration_id }}
                 </p>
                 <p class="text-sm opacity-75">
@@ -225,27 +225,26 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 mb-6">
-            <a href="{{ route('landing') }}" class="flex-1 group">
-                <button class="w-full px-8 py-4 bg-gradient-primary text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden">
+            <a href="{{ route('payment.receipt', $student) }}" class="flex-1 group">
+                <button class="w-full px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden">
                     <span class="relative z-10 flex items-center justify-center space-x-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <span>Back to Home</span>
+                        <span>Download Receipt</span>
                     </span>
                     <div class="absolute inset-0 bg-white/20 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                 </button>
             </a>
             
-            <button 
-                onclick="window.print()" 
-                class="flex-1 px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-bold text-lg hover:border-neutral-400 hover:bg-neutral-50 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2"
-            >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                </svg>
-                <span>Print Receipt</span>
-            </button>
+            <a href="{{ route('landing') }}" class="flex-1 group">
+                <button class="w-full px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-bold text-lg hover:border-neutral-400 hover:bg-neutral-50 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span>Back to Home</span>
+                </button>
+            </a>
         </div>
 
         <!-- Contact Support -->
@@ -267,7 +266,7 @@
                     <span>+94 11 234 5678</span>
                 </a>
             </div>
-            <p class="text-xs text-neutral-500 mt-4">Registration ID: {{ $student->registration_id }}</p>
+            <p class="text-xs text-neutral-500 mt-4 break-all">Registration ID: {{ $student->registration_id }}</p>
         </div>
     </div>
 
