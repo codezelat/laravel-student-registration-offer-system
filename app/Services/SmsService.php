@@ -12,13 +12,7 @@ class SmsService
     private string $source;
     private string $apiUrl;
 
-    private array $whatsappLinks = [
-        'Diploma in Human Resource Management' => 'https://chat.whatsapp.com/F1k9BkpBLoIIw7a3AFZrAR',
-        'Diploma in English' => 'https://chat.whatsapp.com/BuazUa9cIXZ8DI8jt9LTnP',
-        'Diploma in Business Management' => 'https://chat.whatsapp.com/J0J0M7FWNKzDaqey7wQM8z',
-        'Diploma in Psychology and Counseling' => 'https://chat.whatsapp.com/DzjviUriODjAGavdKCrxE8',
-        'Diploma in Information Technology' => 'https://chat.whatsapp.com/Cbv9ytqUGLM1hc7zcRwcEW',
-    ];
+    private array $whatsappLinks;
 
     public function __construct()
     {
@@ -26,6 +20,7 @@ class SmsService
         $this->password = config('services.sms.password');
         $this->source = config('services.sms.source');
         $this->apiUrl = config('services.sms.api_url');
+        $this->whatsappLinks = config('whatsapp.groups', []);
     }
 
     /**
