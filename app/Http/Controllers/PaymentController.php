@@ -61,15 +61,30 @@ class PaymentController extends Controller
             // Generate student ID
             $studentId = $this->generateStudentId();
 
-            // NOW create student record in database with payment info
-            $student = Student::create(array_merge($studentData, [
-                'student_id' => $studentId,
-                'payment_method' => 'slip',
-                'payment_slip' => $path,
-                'payment_status' => 'pending',
-                'amount_paid' => 4000.00,
-                'payment_date' => now(),
-            ]));
+            // Check if student already exists (e.g. from failed PayHere attempt)
+            $student = Student::where('registration_id', $studentData['registration_id'])->first();
+
+            if ($student) {
+                // Update existing record
+                $student->update([
+                    'student_id' => $studentId,
+                    'payment_method' => 'slip',
+                    'payment_slip' => $path,
+                    'payment_status' => 'pending',
+                    'amount_paid' => 4000.00,
+                    'payment_date' => now(),
+                ]);
+            } else {
+                // Create new record
+                $student = Student::create(array_merge($studentData, [
+                    'student_id' => $studentId,
+                    'payment_method' => 'slip',
+                    'payment_slip' => $path,
+                    'payment_status' => 'pending',
+                    'amount_paid' => 4000.00,
+                    'payment_date' => now(),
+                ]));
+            }
 
             // Send SMS notification
             $smsService = new SmsService();
@@ -106,6 +121,28 @@ class PaymentController extends Controller
         
         // Store order ID in session for later
         session()->put('payhere_order_id', $orderId);
+
+        // Check if student already exists
+        $student = Student::where('registration_id', $studentData['registration_id'])->first();
+
+        if (!$student) {
+             // Create student record in database with pending status
+            $student = Student::create(array_merge($studentData, [
+                'student_id' => null, // Will be generated on success
+                'payment_method' => 'online',
+                'payment_status' => 'pending',
+                'payhere_order_id' => $orderId,
+                'amount_paid' => 0,
+                'payment_date' => null,
+            ]));
+        } else {
+            // Update existing student record
+            $student->update([
+                'payhere_order_id' => $orderId,
+                'payment_method' => 'online',
+                'payment_status' => 'pending', 
+            ]);
+        }
         
         // PayHere payment details
         $merchantId = config('services.payhere.merchant_id');
@@ -126,38 +163,26 @@ class PaymentController extends Controller
      */
     public function payhereSuccess(Request $request)
     {
-        if (!session()->has('registration_data')) {
-            return redirect()->route('landing');
+        $orderId = $request->query('order_id') ?? session('payhere_order_id');
+        $student = null;
+
+        if ($orderId) {
+             $student = Student::where('payhere_order_id', $orderId)->first();
+        } 
+        
+        if (!$student && session()->has('registration_data')) {
+             $studentData = session('registration_data');
+             $student = Student::where('registration_id', $studentData['registration_id'])->first();
         }
 
-        $studentData = session('registration_data');
-        $orderId = $request->query('order_id') ?? session('payhere_order_id');
+        if (!$student) {
+            return redirect()->route('landing')->with('error', 'Registration not found.');
+        }
 
-        // Generate student ID
-        $studentId = $this->generateStudentId();
-
-        // NOW create student record in database with payment info
-        $student = Student::create(array_merge($studentData, [
-            'student_id' => $studentId,
-            'payment_method' => 'online',
-            'payment_status' => 'completed',
-            'payhere_order_id' => $orderId,
-            'amount_paid' => 4000.00,
-            'payment_date' => now(),
-        ]));
-
-        // Send SMS notification
-        $smsService = new SmsService();
-        $smsService->sendPaymentConfirmation(
-            $student->whatsapp_number,
-            $student->full_name,
-            $student->registration_id,
-            $student->selected_diploma,
-            'online'
-        );
-
-        // Clear session data
-        session()->forget(['registration_data', 'registration_id', 'payhere_order_id']);
+        // Clear session data only if payment is completed
+        if ($student->payment_status === 'completed') {
+            session()->forget(['registration_data', 'registration_id', 'payhere_order_id']);
+        }
 
         return view('registration.payment-success', compact('student'));
     }
@@ -218,10 +243,10 @@ class PaymentController extends Controller
         // Verify signature
         if ($local_md5sig === $md5sig && $status_code == 2) {
             // Payment success
-            $customField1 = $request->input('custom_1'); // student ID
+            $customField1 = $request->input('custom_1'); // registration_id
             
             if ($customField1) {
-                $student = Student::find($customField1);
+                $student = Student::where('registration_id', $customField1)->first();
                 if ($student && $student->payment_status !== 'completed') {
                     // Generate student ID if not already done
                     if (!$student->student_id) {
@@ -230,6 +255,7 @@ class PaymentController extends Controller
                     }
 
                     $student->update([
+                        'student_id' => $student->student_id,
                         'payment_method' => 'online',
                         'payment_status' => 'completed',
                         'payhere_order_id' => $order_id,
@@ -248,6 +274,12 @@ class PaymentController extends Controller
                     );
                 }
             }
+        } else {
+            Log::error('PayHere Signature Verification Failed', [
+                'local_sig' => $local_md5sig,
+                'remote_sig' => $md5sig,
+                'status_code' => $status_code
+            ]);
         }
 
         return response('OK', 200);

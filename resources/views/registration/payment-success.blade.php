@@ -1,15 +1,15 @@
 <x-layout>
-    <x-slot:title>Payment Successful</x-slot:title>
+    <x-slot:title>{{ $student->payment_status === 'completed' ? 'Payment Successful' : 'Payment Processing' }}</x-slot:title>
 
     <div class="max-w-4xl mx-auto">
         <!-- Progress Indicator -->
         <div class="bg-white rounded-2xl shadow-sm p-6 border border-neutral-200/50 mb-6">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-sm font-medium text-neutral-600">Registration Progress</span>
-                <span class="text-sm font-semibold text-green-600">Step 3 of 3 - Complete!</span>
+                <span class="text-sm font-semibold {{ $student->payment_status === 'completed' ? 'text-green-600' : 'text-yellow-600' }}">Step 3 of 3 - {{ $student->payment_status === 'completed' ? 'Complete!' : 'Processing' }}</span>
             </div>
             <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-green-500 to-emerald-600 w-full rounded-full transition-all duration-500"></div>
+                <div class="h-full {{ $student->payment_status === 'completed' ? 'bg-gradient-to-r from-green-500 to-emerald-600' : 'bg-yellow-500' }} w-full rounded-full transition-all duration-500"></div>
             </div>
             
             <!-- Step Labels -->
@@ -45,22 +45,73 @@
         <div class="text-center mb-8 animate-fade-in">
             <div class="relative inline-flex items-center justify-center mb-6">
                 <!-- Outer Ring -->
-                <div class="absolute w-32 h-32 bg-green-100 rounded-full animate-ping opacity-75"></div>
+                <div class="absolute w-32 h-32 {{ $student->payment_status === 'completed' ? 'bg-green-100' : 'bg-yellow-100' }} rounded-full animate-ping opacity-75"></div>
                 <!-- Inner Circle -->
-                <div class="relative w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full shadow-2xl flex items-center justify-center animate-bounce-slow">
+                <div class="relative w-24 h-24 {{ $student->payment_status === 'completed' ? 'bg-gradient-to-br from-green-500 to-emerald-600' : 'bg-yellow-500' }} rounded-full shadow-2xl flex items-center justify-center animate-bounce-slow">
+                    @if($student->payment_status === 'completed')
                     <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
+                    @else
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    @endif
                 </div>
             </div>
             
+            @if($student->payment_status === 'completed')
             <h1 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-3">
                 Congratulations!
             </h1>
-            <p class="text-2xl text-green-600 font-semibold mb-2">Payment Successful!</p>
+            @endif
+
+            <p class="text-2xl {{ $student->payment_status === 'completed' ? 'text-green-600' : 'text-yellow-600' }} font-semibold mb-2">
+                {{ $student->payment_status === 'completed' ? 'Payment Successful!' : 'Payment Processing...' }}
+            </p>
+
+            @if($student->payment_status === 'completed')
             <p class="text-lg text-neutral-600">
                 Welcome to the program, <span class="font-bold text-primary-600">{{ $student->full_name }}</span>
             </p>
+            @else
+            <div class="space-y-4">
+                <p class="text-lg text-neutral-600">
+                    We are verifying your payment. This usually takes a few seconds.
+                </p>
+                
+                <div class="flex flex-col items-center justify-center space-y-2">
+                    <div class="flex items-center space-x-2 text-sm text-neutral-500">
+                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Auto-refreshing in <span id="countdown">5</span>s...</span>
+                    </div>
+                    
+                    <button onclick="window.location.reload()" class="px-6 py-2 bg-white border border-neutral-300 hover:bg-neutral-50 text-neutral-700 rounded-full text-sm font-medium transition-all shadow-sm hover:shadow flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Check Status Now
+                    </button>
+                </div>
+
+                <script>
+                    let seconds = 5;
+                    const countdownEl = document.getElementById('countdown');
+                    
+                    const timer = setInterval(() => {
+                        seconds--;
+                        if (countdownEl) countdownEl.textContent = seconds;
+                        if (seconds <= 0) {
+                            clearInterval(timer);
+                            window.location.reload();
+                        }
+                    }, 1000);
+                </script>
+            </div>
+            @endif
         </div>
 
         <!-- Student ID Card -->
@@ -101,8 +152,13 @@
                 <div class="p-4 bg-green-50 rounded-xl border border-green-200">
                     <p class="text-sm text-green-700 mb-1">Payment Status</p>
                     <div class="flex items-center space-x-2">
-                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <span class="font-bold text-green-900 text-lg">COMPLETED</span>
+                        @if($student->payment_status === 'completed')
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            <span class="font-bold text-green-900 text-lg">COMPLETED</span>
+                        @else
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                            <span class="font-bold text-yellow-900 text-lg">PROCESSING</span>
+                        @endif
                     </div>
                 </div>
 
@@ -113,12 +169,12 @@
 
                 <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
                     <p class="text-sm text-neutral-600 mb-1">Amount Paid</p>
-                    <p class="font-bold text-2xl text-green-700">LKR {{ number_format($student->amount_paid, 2) }}</p>
+                    <p class="font-bold text-2xl text-green-700">LKR {{ number_format($student->amount_paid > 0 ? $student->amount_paid : 4000, 2) }}</p>
                 </div>
 
                 <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
                     <p class="text-sm text-neutral-600 mb-1">Payment Date</p>
-                    <p class="font-semibold text-neutral-900">{{ $student->payment_date->format('M j, Y - g:i A') }}</p>
+                    <p class="font-semibold text-neutral-900">{{ $student->payment_date ? $student->payment_date->format('M j, Y - g:i A') : 'Pending' }}</p>
                 </div>
             </div>
         </div>
@@ -178,6 +234,7 @@
         </div>
 
         <!-- Next Steps -->
+        @if($student->payment_status === 'completed')
         <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 md:p-10 border border-purple-200/50 mb-6">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="w-12 h-12 bg-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -222,9 +279,11 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 mb-6">
+            @if($student->payment_status === 'completed')
             <a href="{{ route('payment.receipt', $student) }}" class="flex-1 group">
                 <button class="w-full px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden">
                     <span class="relative z-10 flex items-center justify-center space-x-2">
@@ -236,6 +295,16 @@
                     <div class="absolute inset-0 bg-white/20 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                 </button>
             </a>
+            @else
+            <a href="{{ route('payment.options') }}" class="flex-1 group">
+                <button class="w-full px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span>Retry Payment</span>
+                </button>
+            </a>
+            @endif
             
             <a href="{{ route('landing') }}" class="flex-1 group">
                 <button class="w-full px-8 py-4 bg-white border-2 border-neutral-300 text-neutral-900 rounded-2xl font-bold text-lg hover:border-neutral-400 hover:bg-neutral-50 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2">
@@ -253,7 +322,7 @@
             $whatsappLink = $whatsappLinks[$diplomaKey] ?? null;
         @endphp
 
-        @if($whatsappLink)
+        @if($whatsappLink && $student->payment_status === 'completed')
         <!-- WhatsApp Group -->
         <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 md:p-10 border border-green-200/50 mb-6">
             <div class="text-center">
