@@ -91,6 +91,22 @@
                     </select>
                 </div>
 
+                <!-- Payment Method Filter -->
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                    </div>
+                    <select 
+                        name="payment_method" 
+                        class="pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 appearance-none">
+                        <option value="">All Payment Methods</option>
+                        <option value="online" {{ request('payment_method') == 'online' ? 'selected' : '' }}>Online Payment</option>
+                        <option value="slip" {{ request('payment_method') == 'slip' ? 'selected' : '' }}>Bank Slip</option>
+                    </select>
+                </div>
+
                 <!-- Buttons -->
                 <div class="flex gap-3">
                     <button type="submit" class="px-6 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 active:scale-95 whitespace-nowrap">
@@ -162,6 +178,13 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Payment Success</span>
+                                        </span>
+                                    @elseif($student->payment_method === 'online' && $student->payment_status === 'pending')
+                                        <span class="inline-flex items-center space-x-1 text-sm text-yellow-600 font-medium">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Payment Pending</span>
                                         </span>
                                     @elseif($student->payment_slip)
                                         <a href="{{ asset('storage/' . $student->payment_slip) }}" 

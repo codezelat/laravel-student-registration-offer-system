@@ -59,6 +59,11 @@ class AdminController extends Controller
             $query->where('selected_diploma', $request->diploma);
         }
 
+        // Filter by payment method
+        if ($request->has('payment_method') && $request->payment_method != '') {
+            $query->where('payment_method', $request->payment_method);
+        }
+
         $students = $query->orderBy('created_at', 'desc')->paginate(15);
 
         // Get unique diplomas for filter dropdown
@@ -90,6 +95,11 @@ class AdminController extends Controller
         // Filter by diploma
         if ($request->has('diploma') && $request->diploma != '') {
             $query->where('selected_diploma', $request->diploma);
+        }
+
+        // Filter by payment method
+        if ($request->has('payment_method') && $request->payment_method != '') {
+            $query->where('payment_method', $request->payment_method);
         }
 
         $students = $query->get();
@@ -143,7 +153,17 @@ class AdminController extends Controller
             $sheet->setCellValue('N' . $row, ucfirst($student->payment_method ?? 'N/A'));
             $sheet->setCellValue('O' . $row, $student->amount_paid ? 'LKR ' . number_format($student->amount_paid, 2) : 'N/A');
             $sheet->setCellValue('P' . $row, $student->payment_date ? $student->payment_date->format('Y-m-d H:i:s') : 'N/A');
-            $sheet->setCellValue('Q' . $row, $student->payment_slip ? url('storage/' . $student->payment_slip) : 'N/A');
+            
+            if ($student->payment_slip) {
+                $url = url('storage/' . $student->payment_slip);
+                $sheet->setCellValue('Q' . $row, $url);
+                $sheet->getCell('Q' . $row)->getHyperlink()->setUrl($url);
+                $sheet->getStyle('Q' . $row)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
+                $sheet->getStyle('Q' . $row)->getFont()->setUnderline(true);
+            } else {
+                $sheet->setCellValue('Q' . $row, 'N/A');
+            }
+            
             $row++;
         }
 
