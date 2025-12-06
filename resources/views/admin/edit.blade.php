@@ -28,22 +28,22 @@
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo & Title -->
-                <div class="flex items-center space-x-4">
-                    <img src="{{ asset('images/sitc-logo.png') }}" alt="Logo" class="h-12">
-                    <div>
-                        <h1 class="text-lg font-bold text-neutral-900">Special Registration System</h1>
-                        <p class="text-xs text-neutral-500">Edit Student Information</p>
+                <div class="flex items-center space-x-3 sm:space-x-4 overflow-hidden">
+                    <img src="{{ asset('images/sitc-logo.png') }}" alt="Logo" class="h-8 sm:h-12 flex-shrink-0">
+                    <div class="min-w-0">
+                        <h1 class="text-sm sm:text-lg font-bold text-neutral-900 truncate">Special Registration System</h1>
+                        <p class="text-[10px] sm:text-xs text-neutral-500 truncate">Edit Student Information</p>
                     </div>
                 </div>
                 
                 <!-- Actions -->
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-3 flex-shrink-0">
                     <a href="{{ route('admin.dashboard') }}" 
-                       class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-primary-300 hover:bg-primary-50 hover:text-primary-600 transition-all flex items-center space-x-2">
+                       class="px-3 sm:px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-primary-300 hover:bg-primary-50 hover:text-primary-600 transition-all flex items-center space-x-2 text-sm sm:text-base">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        <span>Back to Dashboard</span>
+                        <span class="hidden sm:inline">Back to Dashboard</span>
                     </a>
                 </div>
             </div>

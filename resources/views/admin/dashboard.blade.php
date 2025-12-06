@@ -28,23 +28,23 @@
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo & Title -->
-                <div class="flex items-center space-x-4">
-                    <img src="{{ asset('images/sitc-logo.png') }}" alt="Logo" class="h-12">
-                    <div>
-                        <h1 class="text-lg font-bold text-neutral-900">Special Registration System</h1>
-                        <p class="text-xs text-neutral-500">Admin Dashboard</p>
+                <div class="flex items-center space-x-3 sm:space-x-4 overflow-hidden">
+                    <img src="{{ asset('images/sitc-logo.png') }}" alt="Logo" class="h-8 sm:h-12 flex-shrink-0">
+                    <div class="min-w-0">
+                        <h1 class="text-sm sm:text-lg font-bold text-neutral-900 truncate">Special Registration System</h1>
+                        <p class="text-[10px] sm:text-xs text-neutral-500 truncate">Admin Dashboard</p>
                     </div>
                 </div>
                 
                 <!-- Actions -->
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-3 flex-shrink-0">
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all flex items-center space-x-2">
+                        <button type="submit" class="px-3 sm:px-4 py-2 bg-white border-2 border-neutral-200 text-neutral-700 rounded-xl font-medium hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all flex items-center space-x-2 text-sm sm:text-base">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
-                            <span>Logout</span>
+                            <span class="hidden sm:inline">Logout</span>
                         </button>
                     </form>
                 </div>
@@ -57,9 +57,9 @@
 
         <!-- Controls & Search -->
         <div class="bg-white rounded-2xl p-6 border border-neutral-200/50 shadow-sm">
-            <form action="{{ route('admin.dashboard') }}" method="GET" class="flex flex-col sm:flex-row gap-4">
+            <form action="{{ route('admin.dashboard') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-4">
                 <!-- Search -->
-                <div class="flex-1 relative">
+                <div class="relative xl:col-span-4">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -69,13 +69,13 @@
                         type="text" 
                         name="search" 
                         value="{{ request('search') }}"
-                        placeholder="Search by Name, Registration ID, NIC, WhatsApp, or email..."
+                        placeholder="Search students..."
                         class="w-full pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 placeholder:text-neutral-400"
                     >
                 </div>
 
                 <!-- Diploma Filter -->
-                <div class="relative">
+                <div class="relative xl:col-span-3">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -83,7 +83,7 @@
                     </div>
                     <select 
                         name="diploma" 
-                        class="pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 appearance-none">
+                        class="w-full pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 appearance-none">
                         <option value="">All Diplomas</option>
                         @foreach($diplomas as $diploma)
                             <option value="{{ $diploma }}" {{ request('diploma') == $diploma ? 'selected' : '' }}>{{ $diploma }}</option>
@@ -92,7 +92,7 @@
                 </div>
 
                 <!-- Payment Method Filter -->
-                <div class="relative">
+                <div class="relative xl:col-span-3">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -100,7 +100,7 @@
                     </div>
                     <select 
                         name="payment_method" 
-                        class="pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 appearance-none">
+                        class="w-full pl-12 pr-4 py-3 bg-neutral-50 border-2 border-neutral-200 rounded-xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all text-neutral-900 appearance-none">
                         <option value="">All Payment Methods</option>
                         <option value="online" {{ request('payment_method') == 'online' ? 'selected' : '' }}>Online Payment</option>
                         <option value="slip" {{ request('payment_method') == 'slip' ? 'selected' : '' }}>Bank Slip</option>
@@ -108,23 +108,22 @@
                 </div>
 
                 <!-- Buttons -->
-                <div class="flex gap-3">
-                    <button type="submit" class="px-6 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 active:scale-95 whitespace-nowrap">
+                <div class="flex flex-wrap gap-2 xl:col-span-2">
+                    <button type="submit" class="flex-1 px-4 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex items-center justify-center">
                         Search
                     </button>
                     
-                    @if(request('search') || request('diploma'))
-                        <a href="{{ route('admin.dashboard') }}" class="px-6 py-3 bg-neutral-200 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-300 transition-all whitespace-nowrap">
+                    @if(request('search') || request('diploma') || request('payment_method'))
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 py-3 bg-neutral-200 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-300 transition-all whitespace-nowrap flex items-center justify-center">
                             Clear
                         </a>
                     @endif
                     
-                    <a href="{{ route('admin.export') }}?search={{ request('search') }}&diploma={{ request('diploma') }}" 
-                       class="px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex items-center space-x-2">
+                    <a href="{{ route('admin.export') }}?search={{ request('search') }}&diploma={{ request('diploma') }}&payment_method={{ request('payment_method') }}" 
+                       class="px-4 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex items-center justify-center" title="Export to Excel">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <span>Export</span>
                     </a>
                 </div>
             </form>
@@ -368,11 +367,11 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Full Name</p>
-                                <p class="font-semibold text-neutral-900">${data.full_name}</p>
+                                <p class="font-semibold text-neutral-900 break-words">${data.full_name}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Name with Initials</p>
-                                <p class="font-semibold text-neutral-900">${data.name_with_initials || 'N/A'}</p>
+                                <p class="font-semibold text-neutral-900 break-words">${data.name_with_initials || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Gender</p>
@@ -396,11 +395,11 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Email Address</p>
-                                <p class="font-semibold text-neutral-900">${data.email}</p>
+                                <p class="font-semibold text-neutral-900 break-words">${data.email}</p>
                             </div>
                             <div class="md:col-span-2 space-y-1">
                                 <p class="text-sm text-neutral-500">Permanent Address</p>
-                                <p class="font-semibold text-neutral-900">${data.permanent_address || 'N/A'}</p>
+                                <p class="font-semibold text-neutral-900 break-words">${data.permanent_address || 'N/A'}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Postal Code</p>
@@ -412,7 +411,7 @@
                             </div>
                             <div class="md:col-span-2 space-y-1">
                                 <p class="text-sm text-neutral-500">Selected Diploma</p>
-                                <p class="font-semibold text-neutral-900">${data.selected_diploma}</p>
+                                <p class="font-semibold text-neutral-900 break-words">${data.selected_diploma}</p>
                             </div>
                             <div class="space-y-1">
                                 <p class="text-sm text-neutral-500">Payment Method</p>
@@ -431,7 +430,7 @@
                                 <p class="font-semibold text-neutral-900">${data.payment_date || 'N/A'}</p>
                             </div>
                             ${data.payment_slip ? `
-                            <div class="col-span-2 space-y-1">
+                            <div class="md:col-span-2 space-y-1">
                                 <p class="text-sm text-neutral-500">Payment Slip</p>
                                 <a href="/storage/${data.payment_slip}" target="_blank" class="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
