@@ -5,6 +5,11 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdminController;
 
+// Offer Ended Page
+Route::get('/offer-ended', function () {
+    return view('registration.offer-ended');
+})->name('offer.ended');
+
 // Landing Page - Diploma Selection (New Home)
 Route::get('/', [RegistrationController::class, 'selectDiploma'])->name('select.diploma');
 

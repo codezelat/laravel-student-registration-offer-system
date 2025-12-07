@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'payment/notify',
             'payment/payhere', // Sometimes return URLs are POST too
         ]);
+        
+        // Add global middleware to check registration deadline
+        $middleware->web(append: [
+            \App\Http\Middleware\CheckRegistrationDeadline::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
