@@ -450,10 +450,8 @@
             const distance = deadline - now;
 
             if (distance < 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
+                // Deadline has passed - redirect immediately
+                window.location.href = '{{ route('offer.ended') }}';
                 return;
             }
 

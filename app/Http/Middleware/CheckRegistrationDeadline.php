@@ -17,6 +17,13 @@ class CheckRegistrationDeadline
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Skip check for admin routes and the offer-ended page itself
+        if ($request->is('offer-ended') || 
+            $request->is('sitc-admin-area/*') || 
+            $request->is('superadminloginsitc')) {
+            return $next($request);
+        }
+        
         // Get deadline from environment
         $deadline = env('COUNTDOWN_DEADLINE');
         
@@ -32,10 +39,7 @@ class CheckRegistrationDeadline
             
             // If deadline has passed, redirect to offer ended page
             if ($now->greaterThan($deadlineDate)) {
-                // Don't redirect if already on offer-ended page or admin routes
-                if (!$request->is('offer-ended') && !$request->is('sitc-admin-area/*') && !$request->is('superadminloginsitc')) {
-                    return redirect()->route('offer.ended');
-                }
+                return redirect()->route('offer.ended');
             }
         } catch (\Exception $e) {
             // If there's an error parsing the date, log it and continue

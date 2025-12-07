@@ -399,10 +399,8 @@
                 const timeDiff = deadline - now;
                 
                 if (timeDiff <= 0) {
-                    ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el) el.textContent = '00';
-                    });
+                    // Deadline has passed - redirect immediately
+                    window.location.href = '{{ route('offer.ended') }}';
                     return;
                 }
                 
