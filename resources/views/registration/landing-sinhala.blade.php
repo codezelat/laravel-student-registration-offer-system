@@ -66,7 +66,7 @@
                             <span class="text-red-600 font-bold text-lg">1</span>
                         </div>
                         <p class="text-lg md:text-xl text-neutral-800 leading-relaxed font-medium">
-                            මෙය පොළී රහිත ණය යෝජනා ක්‍රමයක් වන අතර, සමස්ථ ඩිප්ලෝමා පාඪමාලාවක්ම වන්නේ රු. 44,000 ක් පමණි.
+                            මෙය පොළී රහිත ණය යෝජනා ක්‍රමයක් වන අතර, සමස්ථ ඩිප්ලෝමා පාඪමාලාවක්ම වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black -rotate-2 mx-1 shadow-sm bg-red-50/30">රු. 44,000 ක්</span> පමණි.
                         </p>
                     </li>
                     <li class="flex items-start gap-4 p-4 rounded-2xl hover:bg-red-50/50 transition-colors duration-300">
@@ -74,7 +74,7 @@
                             <span class="text-red-600 font-bold text-lg">2</span>
                         </div>
                         <p class="text-lg md:text-xl text-neutral-800 leading-relaxed font-medium">
-                            මෙහිදී 50% ක ශිෂ්‍යත්වයක් නිපුණතා ශිෂ්‍යත්ව අරමුදල මගින් ලබා දෙනු ලැබේ. ඒ අනුව ඔබ ගෙවිය යුතු මුළු මුදල වන්නේ රු. 22000 පමණී.
+                            මෙහිදී 50% ක ශිෂ්‍යත්වයක් නිපුණතා ශිෂ්‍යත්ව අරමුදල මගින් ලබා දෙනු ලැබේ. ඒ අනුව ඔබ ගෙවිය යුතු මුළු මුදල වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black rotate-1 mx-1 shadow-sm bg-red-50/30">රු. 22000 පමණී.</span>
                         </p>
                     </li>
                     <li class="flex items-start gap-4 p-4 rounded-2xl hover:bg-red-50/50 transition-colors duration-300">
@@ -86,6 +86,25 @@
                         </p>
                     </li>
                 </ul>
+
+                <!-- Red Seal -->
+                <div class="flex justify-center mb-6 relative z-20">
+                    <div class="relative group cursor-default">
+                        <!-- Glow Effect -->
+                        <div class="absolute inset-0 bg-red-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                        
+                        <!-- Badge -->
+                        <div class="relative w-40 h-40 rounded-full bg-linear-to-br from-red-600 to-rose-700 p-1 shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                            <div class="w-full h-full rounded-full border-[3px] border-white/30 border-dashed flex flex-col items-center justify-center text-white bg-white/5 backdrop-blur-sm">
+                                <span class="text-xs font-bold tracking-widest text-red-100 uppercase mb-0.5">Special</span>
+                                <span class="text-xl font-black uppercase tracking-tight leading-none text-white drop-shadow-md">Study</span>
+                                <span class="text-3xl font-black uppercase tracking-tighter leading-none text-yellow-300 drop-shadow-md my-0.5">NOW</span>
+                                <span class="text-xl font-black uppercase tracking-tight leading-none text-white drop-shadow-md">Pay Later</span>
+                                <div class="w-12 h-1 bg-white/40 rounded-full mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- CTA Button -->
                 <div class="pt-8 flex justify-center">
