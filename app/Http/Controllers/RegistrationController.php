@@ -19,6 +19,14 @@ class RegistrationController extends Controller
     }
 
     /**
+     * Show the Sinhala landing page (New Home)
+     */
+    public function showSinhalaLanding()
+    {
+        return view('registration.landing-sinhala');
+    }
+
+    /**
      * Show the diploma selection page
      */
     public function selectDiploma()

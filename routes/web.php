@@ -10,8 +10,11 @@ Route::get('/offer-ended', function () {
     return view('registration.offer-ended');
 })->name('offer.ended');
 
-// Landing Page - Diploma Selection (New Home)
-Route::get('/', [RegistrationController::class, 'selectDiploma'])->name('select.diploma');
+// Landing Page - Sinhala Intro (New Home)
+Route::get('/', [RegistrationController::class, 'showSinhalaLanding'])->name('home');
+
+// Diploma Selection Page
+Route::get('/select-diploma', [RegistrationController::class, 'selectDiploma'])->name('select.diploma');
 
 // Eligibility Check Page (Formerly Landing)
 Route::get('/check-eligibility', [RegistrationController::class, 'landing'])->name('landing');
@@ -27,6 +30,7 @@ Route::get('/registration-success', [RegistrationController::class, 'success'])-
 Route::get('/payment/options', [PaymentController::class, 'paymentOptions'])->name('payment.options');
 Route::get('/payment/upload-slip', [PaymentController::class, 'showUploadSlip'])->name('payment.upload-slip');
 Route::post('/payment/store-slip', [PaymentController::class, 'storeSlip'])->name('payment.store-slip');
+Route::post('/payment/agree', [PaymentController::class, 'storeAgreement'])->name('payment.agree');
 Route::post('/payment/payhere', [PaymentController::class, 'payhere'])->name('payment.payhere');
 Route::get('/payment/payhere-success', [PaymentController::class, 'payhereSuccess'])->name('payment.payhere-success');
 Route::post('/payment/notify', [PaymentController::class, 'payhereNotify'])->name('payment.notify');

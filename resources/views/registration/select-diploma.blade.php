@@ -3,14 +3,14 @@
 
     <div class="max-w-4xl mx-auto space-y-8">
         <!-- Countdown Timer Card -->
-        <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden">
+        <div class="bg-linear-to-br from-rose-500 to-pink-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
             <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-24 -translate-x-24"></div>
             
             <div class="relative z-10 text-center">
                 <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-4">
                     <span class="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></span>
-                    <span class="text-sm font-medium">Limited Time Offer</span>
+                    <span class="text-sm font-medium">Limited Time Opportunity</span>
                 </div>
                 
                 <h3 class="text-xl md:text-2xl font-bold mb-6">Registration Closes In:</h3>
@@ -19,25 +19,25 @@
                      data-deadline="{{ env('COUNTDOWN_DEADLINE', '2025-11-26 23:59:59') }}"
                      class="flex justify-center gap-4 md:gap-8">
                     <div class="text-center">
-                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[100px]">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-20 md:min-w-[100px]">
                             <div id="days" class="text-3xl md:text-5xl font-bold">00</div>
                             <div class="text-xs md:text-sm opacity-90 mt-2">Days</div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[100px]">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-20 md:min-w-[100px]">
                             <div id="hours" class="text-3xl md:text-5xl font-bold">00</div>
                             <div class="text-xs md:text-sm opacity-90 mt-2">Hours</div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[100px]">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-20 md:min-w-[100px]">
                             <div id="minutes" class="text-3xl md:text-5xl font-bold">00</div>
                             <div class="text-xs md:text-sm opacity-90 mt-2">Minutes</div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[100px]">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 min-w-20 md:min-w-[100px]">
                             <div id="seconds" class="text-3xl md:text-5xl font-bold">00</div>
                             <div class="text-xs md:text-sm opacity-90 mt-2">Seconds</div>
                         </div>
@@ -83,7 +83,7 @@
                         >
                             <div class="flex items-start space-x-4">
                                 <!-- Radio Button -->
-                                <div class="flex-shrink-0 mt-1">
+                                <div class="shrink-0 mt-1">
                                     <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-smooth"
                                          :class="selected === '{{ $diploma['name'] }}' ? 'border-primary-600 bg-primary-600' : 'border-neutral-300'">
                                         <svg x-show="selected === '{{ $diploma['name'] }}'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@
                         class="group w-full px-8 py-5 bg-gradient-primary text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-smooth hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden"
                     >
                         <span class="relative z-10 flex items-center justify-center space-x-3">
-                            <span>Continue to Registration</span>
+                            <span>Apply to Interest Free Student Loan</span>
                             <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>

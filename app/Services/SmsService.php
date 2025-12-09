@@ -96,6 +96,13 @@ class SmsService
             }
         } elseif ($paymentMethod === 'slip') {
             $message = "Your form has been submitted for {$diplomaName}. Your Registration ID: {$registrationId}. Our support team will add you to the related WhatsApp group soon.";
+        } elseif ($paymentMethod === 'study_now_pay_later') {
+            $message = "Congratulations {$studentName}! Your Study Now Pay Later registration for {$diplomaName} is confirmed. Your Registration ID: {$registrationId}.";
+            
+            // Add WhatsApp group link if available
+            if (isset($this->whatsappLinks[$diplomaName])) {
+                $message .= " Join the WhatsApp group: {$this->whatsappLinks[$diplomaName]}";
+            }
         } else {
             // Fallback
             $message = "Payment processed for {$diplomaName}. Your Registration ID: {$registrationId}.";

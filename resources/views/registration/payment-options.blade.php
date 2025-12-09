@@ -38,7 +38,7 @@
         </div>
 
         <!-- Countdown Timer (same as Step 1) -->
-        <div class="bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="bg-linear-to-br from-primary-500 to-primary-600 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
             <div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-24 translate-x-24"></div>
             
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -86,9 +86,9 @@
         </div>
 
         <!-- Selected Diploma Badge (same as Step 1) -->
-        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200/50">
+        <div class="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200/50">
             <div class="flex items-center space-x-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-linear-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -110,7 +110,7 @@
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Registration ID -->
-                <div class="flex items-start space-x-3 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200/50">
+                <div class="flex items-start space-x-3 p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200/50">
                     <svg class="w-5 h-5 text-green-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -261,24 +261,152 @@
         <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-neutral-200/50">
             <h2 class="text-2xl font-bold text-neutral-900 mb-6">Choose Payment Method</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Online Payment -->
-                <form action="{{ route('payment.payhere') }}" method="POST" class="h-full">
-                    @csrf
-                    <button type="submit" class="group w-full h-full text-left">
-                        <div class="h-full p-6 bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
-                            <div class="flex items-start justify-between mb-4">
-                                <div class="w-14 h-14 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
-                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <!-- Study Now Pay Later Option -->
+                <div class="col-span-full">
+                    <form action="{{ route('payment.agree') }}" method="POST">
+                        @csrf
+                        <div class="bg-linear-to-br from-red-50 to-rose-50 border-2 border-red-200 rounded-3xl p-8 transition-smooth hover:shadow-xl">
+                            <div class="flex items-start justify-between mb-8">
+                                <div class="w-16 h-16 bg-linear-to-br from-red-600 to-rose-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                     </svg>
                                 </div>
-                                <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">RECOMMENDED</span>
                             </div>
                             
-                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Pay Using Your Card Now</h3>
+                            <h3 class="text-3xl font-bold text-neutral-900 mb-6">Study Now Pay Later</h3>
+                            
+                            <div class="space-y-6 mb-8">
+                                <div class="flex items-start gap-4">
+                                    <div class="shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mt-1">
+                                        <span class="text-red-600 font-bold">1</span>
+                                    </div>
+                                    <p class="text-lg text-neutral-800 font-medium leading-relaxed">
+                                        Students have to pay the examination fee of <span class="font-bold text-red-600">Rs 1800</span> at the end of the course. Exam will be physical at your nearest center. We have 20+ Centers.
+                                    </p>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mt-1">
+                                        <span class="text-red-600 font-bold">2</span>
+                                    </div>
+                                    <p class="text-lg text-neutral-800 font-medium leading-relaxed">
+                                        There are no any additional fees. If you are willing to participate for the convocation you will have to pay the convocation fees to BMICH only. No certificate fees. (We provide your UGC recognized university certificate).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Digital Signature Section -->
+                            <div class="bg-white rounded-2xl p-6 border border-red-200 mb-8">
+                                <h4 class="text-sm font-bold text-red-600 uppercase tracking-wider mb-4">Digital Agreement</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs text-neutral-500 mb-1">Full Name</label>
+                                        <input type="text" value="{{ $studentData['full_name'] }}" readonly 
+                                               class="w-full bg-red-50 border-red-200 rounded-lg py-2 px-3 text-red-600 font-bold focus:ring-0 focus:border-red-200 cursor-not-allowed">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-neutral-500 mb-1">NIC Number</label>
+                                        <input type="text" value="{{ $studentData['nic'] }}" readonly 
+                                               class="w-full bg-red-50 border-red-200 rounded-lg py-2 px-3 text-red-600 font-bold focus:ring-0 focus:border-red-200 cursor-not-allowed">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="group w-full py-5 bg-linear-to-r from-red-600 to-rose-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all relative overflow-hidden">
+                                <span class="relative z-10 flex items-center justify-center gap-3">
+                                    I Agree & Complete Registration
+                                    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <div class="absolute inset-0 bg-white/20 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Temporarily Disabled Payment Methods -->
+                <!-- Temporarily Disabled Payment Methods -->
+                {{--
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 opacity-50 pointer-events-none hidden">
+                    <!-- Online Payment -->
+                    <form action="{{ route('payment.payhere') }}" method="POST" class="h-full">
+                        @csrf
+                        <button type="submit" class="group w-full h-full text-left">
+                            <div class="h-full p-6 bg-linear-to-br from-primary-50 to-primary-100 border-2 border-primary-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="w-14 h-14 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
+                                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                        </svg>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">RECOMMENDED</span>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold text-neutral-900 mb-2">Pay Using Your Card Now</h3>
+                                <p class="text-sm text-neutral-700 mb-4 leading-relaxed">
+                                    Quick and secure payment with PayHere. Instant confirmation upon payment.
+                                </p>
+                                
+                                <div class="space-y-2 mb-4">
+                                    <div class="flex items-start space-x-2 text-sm text-neutral-600">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Instant registration to the program</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2 text-sm text-neutral-600">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Credit/Debit cards accepted</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2 text-sm text-neutral-600">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Immediate access to course WhatsApp group upon payment</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2 text-sm text-neutral-600">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Secure encrypted payment processing</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2 text-sm text-neutral-600">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Central Bank of Sri Lanka approved PayHere payment gateway</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between pt-4 border-t border-primary-200">
+                                    <span class="text-sm font-medium text-neutral-700">Proceed to payment</span>
+                                    <svg class="w-5 h-5 text-primary-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+
+                    <!-- Bank Transfer -->
+                    <a href="{{ route('payment.upload-slip') }}" class="group block h-full">
+                        <div class="h-full p-6 bg-linear-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="w-14 h-14 bg-linear-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">BANK TRANSFER</span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Upload Payment Slip</h3>
                             <p class="text-sm text-neutral-700 mb-4 leading-relaxed">
-                                Quick and secure payment with PayHere. Instant confirmation upon payment.
+                                Pay via bank transfer and upload your payment slip for verification.
                             </p>
                             
                             <div class="space-y-2 mb-4">
@@ -286,91 +414,32 @@
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Instant registration to the program</span>
+                                    <span>2-3 business days verification</span>
                                 </div>
                                 <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Credit/Debit cards accepted</span>
+                                    <span>JPG, PNG, PDF, DOCX accepted</span>
                                 </div>
                                 <div class="flex items-start space-x-2 text-sm text-neutral-600">
                                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Immediate access to course WhatsApp group upon payment</span>
-                                </div>
-                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
-                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span>Secure encrypted payment processing</span>
-                                </div>
-                                <div class="flex items-start space-x-2 text-sm text-neutral-600">
-                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span>Central Bank of Sri Lanka approved PayHere payment gateway</span>
+                                    <span>Confirmation only after approval</span>
                                 </div>
                             </div>
                             
-                            <div class="flex items-center justify-between pt-4 border-t border-primary-200">
-                                <span class="text-sm font-medium text-neutral-700">Proceed to payment</span>
-                                <svg class="w-5 h-5 text-primary-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="flex items-center justify-between pt-4 border-t border-green-200">
+                                <span class="text-sm font-medium text-neutral-700">Upload payment slip</span>
+                                <svg class="w-5 h-5 text-green-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
                             </div>
                         </div>
-                    </button>
-                </form>
-
-                <!-- Bank Transfer -->
-                <a href="{{ route('payment.upload-slip') }}" class="group block h-full">
-                    <div class="h-full p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:shadow-xl transition-smooth hover:scale-[1.02] active:scale-[0.98]">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                            </div>
-                            <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">BANK TRANSFER</span>
-                        </div>
-                        
-                        <h3 class="text-xl font-bold text-neutral-900 mb-2">Upload Payment Slip</h3>
-                        <p class="text-sm text-neutral-700 mb-4 leading-relaxed">
-                            Pay via bank transfer and upload your payment slip for verification.
-                        </p>
-                        
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span>2-3 business days verification</span>
-                            </div>
-                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span>JPG, PNG, PDF, DOCX accepted</span>
-                            </div>
-                            <div class="flex items-start space-x-2 text-sm text-neutral-600">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span>Confirmation only after approval</span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center justify-between pt-4 border-t border-green-200">
-                            <span class="text-sm font-medium text-neutral-700">Upload payment slip</span>
-                            <svg class="w-5 h-5 text-green-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+                --}}
 
             <!-- Back Button -->
             <div class="mt-6 text-center">

@@ -38,6 +38,66 @@ class PaymentController extends Controller
     }
 
     /**
+     * Store the Study Now Pay Later agreement
+     */
+    public function storeAgreement(Request $request)
+    {
+        if (!session()->has('registration_data')) {
+            return redirect()->route('landing');
+        }
+
+        $studentData = session('registration_data');
+        
+        // Generate student ID
+        $studentId = $this->generateStudentId();
+
+        // Check if student already exists
+        $student = Student::where('registration_id', $studentData['registration_id'])->first();
+
+        if ($student) {
+            // Update existing record
+            $student->update([
+                'student_id' => $studentId,
+                'payment_method' => 'study_now_pay_later',
+                'payment_status' => 'pending_exam_fee', // Specific status for this method
+                'amount_paid' => 0,
+                'payment_date' => now(),
+            ]);
+        } else {
+            // Create new record
+            $student = Student::create(array_merge($studentData, [
+                'student_id' => $studentId,
+                'payment_method' => 'study_now_pay_later',
+                'payment_status' => 'pending_exam_fee',
+                'amount_paid' => 0,
+                'payment_date' => now(),
+            ]));
+        }
+
+        // Send SMS notification
+        $smsService = new SmsService();
+        try {
+            $smsService->sendPaymentConfirmation(
+                $student->whatsapp_number,
+                $student->full_name,
+                $student->registration_id,
+                $student->selected_diploma,
+                'study_now_pay_later'
+            );
+        } catch (\Exception $e) {
+            Log::error('SMS Send Failed: ' . $e->getMessage());
+        }
+
+        // Clear session data
+        session()->forget(['registration_data', 'registration_id']);
+
+        // Get WhatsApp link
+        $whatsappLink = config('whatsapp.groups.' . $student->selected_diploma);
+
+        return view('registration.success', compact('student', 'whatsappLink')); // Reuse generic success or create specific one
+    }
+
+    /**
      * Store uploaded payment slip
      */
     public function storeSlip(Request $request)
