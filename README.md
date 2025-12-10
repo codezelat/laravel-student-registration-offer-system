@@ -213,7 +213,7 @@ return [
     [
         'name' => 'Diploma in English',
         'full_name' => 'Diploma in English – 2025 – UGC Recognized University Diploma',
-        'reg_prefix' => 'SITC/2025/3B/EN',
+        'reg_prefix' => 'SITC/SC/2025/3B/EN',
     ],
     // Add more diplomas...
 ];
@@ -223,7 +223,7 @@ return [
 
 -   `name`: Short display name
 -   `full_name`: Complete program title
--   `reg_prefix`: Prefix for registration ID generation (e.g., `SITC/2025/3B/EN/12345678`)
+-   `reg_prefix`: Prefix for registration ID generation (e.g., `SITC/SC/2025/3B/EN/12345678`)
 
 ### Districts (`config/districts.php`)
 
@@ -616,7 +616,7 @@ public function sendPaymentConfirmation($phoneNumber, $registrationId)
 #### Step 4: Receive Confirmation
 
 -   Print success page (A4 format)
--   Note your Registration ID (e.g., `SITC/2025/3B/EN/12345678`)
+-   Note your Registration ID (e.g., `SITC/SC/2025/3B/EN/12345678`)
 -   Student ID will be generated after payment verification
 
 ---

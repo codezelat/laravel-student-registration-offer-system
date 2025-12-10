@@ -431,7 +431,11 @@
                     <h3 class="font-semibold text-blue-900 mb-1">Need Help?</h3>
                     <p class="text-sm text-blue-800 leading-relaxed">
                         If you have any questions or need assistance with the registration process, 
-                        please contact our support team.
+                        please contact our support team via WhatsApp at 
+                        <a href=" https://wa.me/+94715258653" 
+                           class="font-medium text-green-900 underline hover:text-green-700" 
+                           target="_blank"
+                        >+94715258653</a>.
                     </p>
                 </div>
             </div>

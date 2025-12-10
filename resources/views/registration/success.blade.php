@@ -27,7 +27,7 @@
                 <!-- Registration ID Display -->
                 <div class="bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
                     <p class="text-sm font-medium mb-2 opacity-90">Your Registration ID</p>
-                    <p class="text-2xl font-bold tracking-wide mb-2">
+                    <p class="text-2xl font-bold tracking-wide mb-2 break-all">
                         {{ $student->registration_id }}
                     </p>
                     <p class="text-xs opacity-90">

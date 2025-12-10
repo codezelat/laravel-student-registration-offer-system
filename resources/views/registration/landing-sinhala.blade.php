@@ -66,7 +66,7 @@
                             <span class="text-red-600 font-bold text-lg">1</span>
                         </div>
                         <p class="text-lg md:text-xl text-neutral-800 leading-relaxed font-medium">
-                            මෙය පොළී රහිත ණය යෝජනා ක්‍රමයක් වන අතර, සමස්ථ ඩිප්ලෝමා පාඪමාලාවක්ම වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black -rotate-2 mx-1 shadow-sm bg-red-50/30">රු. 44,000 ක්</span> පමණි.
+                            මෙය පොළී රහිත ණය යෝජනා ක්‍රමයක් වන අතර, සමස්ථ ඩිප්ලෝමා පාඨමාලාවක්ම වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black mx-1 shadow-sm bg-red-50/30">රු. 44,000 ක්</span> පමණි.
                         </p>
                     </li>
                     <li class="flex items-start gap-4 p-4 rounded-2xl hover:bg-red-50/50 transition-colors duration-300">
@@ -74,7 +74,7 @@
                             <span class="text-red-600 font-bold text-lg">2</span>
                         </div>
                         <p class="text-lg md:text-xl text-neutral-800 leading-relaxed font-medium">
-                            මෙහිදී 50% ක ශිෂ්‍යත්වයක් නිපුණතා ශිෂ්‍යත්ව අරමුදල මගින් ලබා දෙනු ලැබේ. ඒ අනුව ඔබ ගෙවිය යුතු මුළු මුදල වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black rotate-1 mx-1 shadow-sm bg-red-50/30">රු. 22000 පමණී.</span>
+                            මෙහිදී 50% ක ශිෂ්‍යත්වයක් නිපුණතා ශිෂ්‍යත්ව අරමුදල මගින් ලබා දෙනු ලැබේ. ඒ අනුව ඔබ ගෙවිය යුතු මුළු මුදල වන්නේ <span class="inline-block border-4 border-double border-red-600 rounded-lg px-2 py-1 text-red-600 font-black mx-1 shadow-sm bg-red-50/30">රු. 22,000 පමණී.</span>
                         </p>
                     </li>
                     <li class="flex items-start gap-4 p-4 rounded-2xl hover:bg-red-50/50 transition-colors duration-300">
@@ -82,7 +82,7 @@
                             <span class="text-red-600 font-bold text-lg">3</span>
                         </div>
                         <p class="text-lg md:text-xl text-neutral-800 leading-relaxed font-medium">
-                            මෙම රු. 22000 පාඨමාලා ගාස්තුව සිසුන් ගෙවිය යුත්තේ ඩිප්ලෝමා වැඩසටහන අවසානයේදීය. ඉන් පසු ද කිසිදු අමතර මුදලක් ගෙවිය යුතු නැත.
+                            මෙම රු. 22,000 පාඨමාලා ගාස්තුව සිසුන් ගෙවිය යුත්තේ ඩිප්ලෝමා වැඩසටහන අවසානයේදීය. ඉන් පසු ද කිසිදු අමතර මුදලක් ගෙවිය යුතු නැත.
                         </p>
                     </li>
                 </ul>
