@@ -91,7 +91,7 @@
                     </h3>
                     
                     <p class="text-lg text-neutral-700 mb-6 leading-relaxed">
-                        We appreciate your enthusiasm. However, as you have just started a new diploma program, you are not eligible for this discount this time. 
+                        We appreciate your enthusiasm. However, as you have just started a new diploma program, you are not eligible for this loan scheme on this particular diploma program this time. 
                     </p>
                     
                     <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-6 mb-6">

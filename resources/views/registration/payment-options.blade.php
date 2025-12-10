@@ -284,7 +284,7 @@
                                         <span class="text-red-600 font-bold">1</span>
                                     </div>
                                     <p class="text-lg text-neutral-800 font-medium leading-relaxed">
-                                        Students have to pay the examination fee of <span class="font-bold text-red-600">Rs 1,000</span> at the end of the course. Exam will be physical at your nearest center. We have 20+ centers island-wide. If you cannot attend the examination physically, you can request for an online proctored exam. There is only one final examination and revision support will also be provided prior to it. Students residing abroad can also sit for the online proctored exam.
+                                        Students have to pay the examination fee of <span class="font-bold text-red-600">Rs 1,000</span> at the end of the course. Exam will be physical at your nearest center. We have 20+ centers island-wide. If you cannot attend the examination physically, you can request for an online examination. There is only one final examination and revision support will also be provided prior to it. Students residing abroad can also sit for the online examination.
                                     </p>
                                 </div>
                                 
@@ -294,7 +294,18 @@
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-lg text-neutral-800 font-medium leading-relaxed">
-                                            <span class="inline-block px-4 py-2 bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-200 text-red-900 font-black rounded-lg border-2 border-yellow-400 shadow-lg">There are no any additional fees.</span> If you are willing to participate for the convocation you will have to pay the convocation fees to BMICH only. (Approx. Rs.4,500 only if you are attending the convocation) No certificate fees. (We provide your UGC recognized university certificate - free of charge).
+                                            <span class="inline-block px-4 py-2 bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-200 text-red-900 font-black rounded-lg border-2 border-yellow-400 shadow-lg">There are no any additional fees for the certificate.</span> If you are willing to participate for the convocation you will have to pay the convocation fees to BMICH only. (Approximately Rs.4,500 only if you are attending the convocation) No certificate fees. (We provide your UGC recognized university certificate - free of charge for completing the diploma).
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mt-1">
+                                        <span class="text-red-600 font-bold">3</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-lg text-neutral-800 font-medium leading-relaxed">
+                                            The complete course fees is Rs. 22,000. This should be paid fully to a bank account under SITC Campus upon releasing results after completing the program.
                                         </p>
                                     </div>
                                 </div>
