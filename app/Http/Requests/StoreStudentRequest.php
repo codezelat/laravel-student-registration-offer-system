@@ -24,7 +24,7 @@ class StoreStudentRequest extends FormRequest
         $selectedDiploma = $this->input('selected_diploma');
         
         return [
-            'registration_id' => ['required', 'string', 'regex:/^SITC\/2025\/\d+B\/(EN|PC|IT|HR|BM)\/\d{8}$/', 'unique:students,registration_id'],
+            'registration_id' => ['required', 'string', 'regex:/^SITC\/SC\/2025\/\d+B\/(EN|PC|IT|HR|BM)\/\d{8}$/', 'unique:students,registration_id'],
             'full_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'name_with_initials' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'in:male,female'],
