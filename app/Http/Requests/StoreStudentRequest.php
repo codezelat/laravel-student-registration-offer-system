@@ -63,7 +63,7 @@ class StoreStudentRequest extends FormRequest
                 }
             ],
             'permanent_address' => ['required', 'string', 'max:500'],
-            'postal_code' => ['required', 'string', 'regex:/^[0-9]{5}$/'],
+            'postal_code' => ['nullable', 'string', 'regex:/^[0-9]{5}$/'],
             'district' => ['required', 'string'],
             'home_contact_number' => ['required', 'string', 'regex:/^0[0-9]{9}$/'],
             'whatsapp_number' => [
@@ -106,7 +106,6 @@ class StoreStudentRequest extends FormRequest
             'email.email' => 'Please enter a valid email address.',
             'permanent_address.required' => 'Please enter your permanent address.',
             'permanent_address.max' => 'Address cannot exceed 500 characters.',
-            'postal_code.required' => 'Please enter your postal code.',
             'postal_code.regex' => 'Please enter a valid 5-digit postal code.',
             'district.required' => 'Please select your district.',
             'home_contact_number.required' => 'Please enter your emergency contact number.',

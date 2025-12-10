@@ -306,7 +306,7 @@
                     <!-- Postal Code -->
                     <div class="space-y-2">
                         <label for="postal_code" class="block text-sm font-semibold text-neutral-700">
-                            Postal Code <span class="text-red-500">*</span>
+                            Postal Code <span class="text-neutral-400 text-xs">(Optional)</span>
                         </label>
                         <input 
                             type="text" 
