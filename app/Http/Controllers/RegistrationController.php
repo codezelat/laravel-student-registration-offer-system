@@ -59,7 +59,8 @@ class RegistrationController extends Controller
         return view('registration.register', [
             'diploma' => $diploma,
             'registrationId' => $registrationId,
-            'districts' => $districts
+            'districts' => $districts,
+            'courseLink' => $diplomaConfig['course_link'] ?? null
         ]);
     }
 

@@ -256,6 +256,9 @@
                         <p class="font-semibold text-neutral-900">{{ $studentData['permanent_address'] }}</p>
                     </div>
                 </div>
+
+                <!-- Course Duration -->
+                
             </div>
         </div>
 

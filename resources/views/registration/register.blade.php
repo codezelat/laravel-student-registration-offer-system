@@ -442,7 +442,7 @@
         <!-- Help Section -->
         <div class="bg-blue-50 rounded-2xl p-6 border border-blue-200/50">
             <div class="flex items-start space-x-3">
-                <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
@@ -450,7 +450,7 @@
                     <p class="text-sm text-blue-800 leading-relaxed">
                         If you have any questions or need assistance with the registration process, 
                         please contact our support team via WhatsApp at 
-                        <a href=" https://wa.me/+94715258653" 
+                        <a href="https://wa.me/+94715258653" 
                            class="font-medium text-green-900 underline hover:text-green-700" 
                            target="_blank"
                         >+94715258653</a>.
@@ -458,6 +458,33 @@
                 </div>
             </div>
         </div>
+
+        <!-- View Course Details -->
+        @if(!empty($courseLink))
+        <div class="bg-purple-50 rounded-2xl p-6 border border-purple-200/50">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-start space-x-3">
+                    <svg class="w-6 h-6 text-purple-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <div>
+                        <h3 class="font-semibold text-purple-900 mb-1">Want to Know More?</h3>
+                        <p class="text-sm text-purple-800 leading-relaxed">
+                            View complete course details, syllabus, and program information for {{ $diploma }}.
+                        </p>
+                    </div>
+                </div>
+                <a href="{{ $courseLink }}" 
+                   target="_blank"
+                   class="group shrink-0 px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:bg-purple-700 transition-all hover:scale-105 active:scale-95 flex items-center space-x-2">
+                    <span>View Course Details</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        @endif
     </div>
 
     <script>
