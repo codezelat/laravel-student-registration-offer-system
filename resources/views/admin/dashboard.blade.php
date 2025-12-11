@@ -104,23 +104,30 @@
                         <option value="">All Payment Methods</option>
                         <option value="online" {{ request('payment_method') == 'online' ? 'selected' : '' }}>Online Payment</option>
                         <option value="slip" {{ request('payment_method') == 'slip' ? 'selected' : '' }}>Bank Slip</option>
+                        <option value="study_now_pay_later" {{ request('payment_method') == 'study_now_pay_later' ? 'selected' : '' }}>Study Now Pay Later</option>
                     </select>
                 </div>
 
                 <!-- Buttons -->
-                <div class="flex flex-wrap gap-2 xl:col-span-2">
-                    <button type="submit" class="flex-1 px-4 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex items-center justify-center">
-                        Search
+                <div class="xl:col-span-2 flex items-center gap-2">
+                    <button type="submit" class="px-4 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center justify-center min-w-[44px]">
+                        <span class="hidden sm:inline">Search</span>
+                        <svg class="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
                     </button>
                     
                     @if(request('search') || request('diploma') || request('payment_method'))
-                        <a href="{{ route('admin.dashboard') }}" class="px-4 py-3 bg-neutral-200 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-300 transition-all whitespace-nowrap flex items-center justify-center">
-                            Clear
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 py-3 bg-neutral-200 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-300 transition-all flex items-center justify-center min-w-[44px]">
+                            <span class="hidden sm:inline">Clear</span>
+                            <svg class="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
                         </a>
                     @endif
                     
                     <a href="{{ route('admin.export') }}?search={{ request('search') }}&diploma={{ request('diploma') }}&payment_method={{ request('payment_method') }}" 
-                       class="px-4 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex items-center justify-center" title="Export to Excel">
+                       class="px-4 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all hover:scale-105 active:scale-95 flex items-center justify-center min-w-[44px]" title="Export to Excel">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
